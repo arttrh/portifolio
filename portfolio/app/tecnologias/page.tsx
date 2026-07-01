@@ -1,0 +1,48 @@
+import type { Metadata } from "next";
+import { PageHeader } from "@/components/sections/page-header";
+import { Reveal } from "@/components/sections/reveal";
+import { Eyebrow } from "@/components/sections/eyebrow";
+import { TechCard } from "@/components/sections/tech-card";
+import { technologies } from "@/lib/data";
+import type { Technology } from "@/types";
+
+export const metadata: Metadata = { title: "Tecnologias" };
+
+const categories: Technology["category"][] = [
+  "Backend",
+  "Banco de Dados",
+  "Mensageria",
+  "DevOps",
+  "Arquitetura",
+  "Ferramentas",
+];
+
+export default function TecnologiasPage() {
+  return (
+    <>
+      <PageHeader
+        eyebrow="Tecnologias"
+        title="Ferramentas que eu realmente uso"
+        description="Organizado por categoria, com nível honesto — sem inflar o que ainda está em aprendizado."
+      />
+      <section className="mx-auto max-w-content space-y-16 px-6 pb-24">
+        {categories.map((category) => {
+          const items = technologies.filter((t) => t.category === category);
+          if (items.length === 0) return null;
+          return (
+            <div key={category}>
+              <Reveal>
+                <Eyebrow>{category}</Eyebrow>
+              </Reveal>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {items.map((tech, i) => (
+                  <TechCard key={tech.name} tech={tech} index={i} />
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </section>
+    </>
+  );
+}

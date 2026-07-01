@@ -1,0 +1,6 @@
+﻿portfolio/node_modules
+portfolio/.next
+portfolio/out
+**/.env*
+.DS_Store
+*.tsbuildinfo
