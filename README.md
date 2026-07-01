@@ -1,7 +1,7 @@
 # Portfolio
 
 Portfólio pessoal em Next.js 15 + TypeScript + Tailwind, com elemento-assinatura
-(diagrama hexagonal animado no hero) inspirado na sua especialidade em
+(diagrama hexagonal animado no hero) inspirado na minha especialidade em
 arquitetura hexagonal (ports & adapters).
 
 ## Rodar localmente
