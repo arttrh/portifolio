@@ -36,7 +36,7 @@ export const projects: Project[] = [
       "Versionar o schema do PostgreSQL com Flyway mantendo deleção lógica consistente em todas as entidades via enums de status.",
     ],
     stack: ["Java", "Spring Boot", "JWT", "PostgreSQL", "Flyway", "Rate Limiting", "Docker"],
-    githubUrl: "https://github.com/rthurlucas",
+    githubUrl: "https://github.com/arttrh/Sistema-de-ocorr-ncia-escolar",
   },
   {
     slug: "auto-escola",
@@ -52,8 +52,8 @@ export const projects: Project[] = [
       "Definir contratos de mensagem claros entre o serviço de agendamento e o worker de notificação.",
       "Containerizar o stack completo (API, banco, broker) para que o ambiente de desenvolvimento fosse reproduzível com um único comando.",
     ],
-    stack: ["Java", "Spring Boot", "JWT", "MySQL", "RabbitMQ", "SMTP", "Docker"],
-    githubUrl: "https://github.com/rthurlucas",
+    stack: ["Java", "Spring Boot", "JWT", "MySQL", "RabbitMQ", "SMTP", "Docker", "RabbitMQ"],
+    githubUrl: "https://github.com/arttrh/AUTOESCOLAN116",
   },
 ];
 
