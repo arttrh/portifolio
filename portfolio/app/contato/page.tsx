@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/sections/page-header";
 import { Reveal } from "@/components/sections/reveal";
 import { ContactForm } from "@/components/sections/contact-form";
 import { profile } from "@/lib/data";
+import { useEffect } from "react";
 
 export const metadata: Metadata = { title: "Contato" };
 

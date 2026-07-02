@@ -1,0 +1,36 @@
+import { Resend } from 'resend'
+import { NextResponse } from 'next/server'
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+export async function POST(req: Request){
+    try{
+        const {name, email, message} = await req.json();
+
+        const resultado = await resend.emails.send({
+            from: "Porfolio <onboarding@resend.dev>",
+            to: "arthurlucasx696@gmail.com",
+            subject: "Novo contato",
+            replyTo: email,
+            html:
+            `
+        <h2>Novo contato</h2>
+
+        <p><strong>Nome:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+
+        <p><strong>Mensagem:</strong></p>
+
+        <p>${message}</p>
+      `,
+        });
+        console.log("RESEND:", resultado);
+        return NextResponse.json({success: true});
+    } catch(error){
+        console.error(error);
+        return NextResponse.json(
+            { success: false },
+            {status: 500}
+        );
+    }
+} 

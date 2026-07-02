@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Send, Check } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -9,14 +9,46 @@ import { Button } from "@/components/ui/button";
 
 export function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sent">("idle");
+  const [loading, setLoading] = useState(false)
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    // Substitua por integração real (Resend, Formspree, API route própria etc.)
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  e.preventDefault();
+
+  setLoading(true);
+
+  try {
+    const form = e.currentTarget;
+
+    const body = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    };
+
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      throw new Error("Erro ao enviar.");
+    }
+
     setStatus("sent");
+    form.reset();
+  } catch (error) {
+    console.error(error);
+    alert("Erro ao enviar mensagem.");
+  } finally {
+    setLoading(false);
   }
+}
 
   if (status === "sent") {
+    
     return (
       <motion.div
         initial={{ opacity: 0, y: 12 }}
