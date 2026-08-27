@@ -12,36 +12,37 @@ export default function SobrePage() {
     <>
       <PageHeader
         eyebrow="Sobre"
-        title="Rigor técnico, mesmo sem crachá ainda"
-        description="Minha trajetória até aqui é curta em tempo e densa em prática — cada projeto foi uma desculpa pra fazer certo o que normalmente se aprende errando em produção."
+        title="Como eu vim parar no backend"
+        description="Comecei no técnico, passei pelo SENAI e desde então construo API atrás de API pra entender como as coisas quebram."
       />
 
       <section className="mx-auto max-w-content px-6 pb-20">
         <div className="grid gap-16 lg:grid-cols-[1fr_320px]">
           <Reveal className="space-y-6 text-[15px] leading-relaxed text-graphite sm:text-base">
             <p>
-              Comecei no técnico de Análise e Desenvolvimento de Sistemas ainda no ensino médio, onde tive o primeiro
-              contato estruturado com lógica, banco de dados e desenvolvimento web. Foi ali que percebi que não
-              queria só fazer código funcionar — queria entender <em className="text-ink not-italic font-medium">por que</em> uma
-              arquitetura funciona melhor que outra.
+              Entrei no técnico de Análise e Desenvolvimento de Sistemas junto com o ensino médio, sem ideia nenhuma
+              do que era programar. O primeiro ano foi lógica e banco de dados; o resto foi eu descobrindo que a
+              parte que me prende não é fazer funcionar, é decidir{" "}
+              <em className="text-ink not-italic font-medium">como</em> vai funcionar.
             </p>
             <p>
-              Isso me levou direto para Java e Spring Boot, e de lá para um interesse específico: arquitetura
-              hexagonal. A ideia de isolar completamente as regras de negócio de qualquer detalhe de infraestrutura —
-              banco, framework, protocolo de transporte — mudou como eu penso cada projeto que começo. Não é sobre
-              seguir um padrão por seguir; é sobre construir sistemas que sobrevivem a mudança de contexto.
+              Java e Spring Boot vieram naturalmente, e junto veio uma birra específica: arquitetura hexagonal. A
+              primeira vez que li sobre ports e adapters eu não entendi direito, achei firula. Entendi quando
+              precisei trocar uma coisa de lugar num projeto antigo e tive que mexer em quinze arquivos. Hoje eu
+              escrevo a porta antes do adapter, e não é por disciplina — é preguiça bem investida.
             </p>
             <p>
-              Meus dois projetos principais nasceram dessa obsessão. No Sistema de Ocorrência Escolar, apliquei ports
-              & adapters de forma completa, com rate limiting e versionamento de banco via Flyway. No Auto Escola,
-              fui além do CRUD e introduzi mensageria assíncrona com RabbitMQ para desacoplar efeitos colaterais do
-              fluxo principal — meu primeiro contato real com sistemas distribuídos, ainda que em escala pequena.
+              Os projetos aqui do site foram onde isso ficou de pé. Na Cantina eu ainda estava no MVC clássico, com
+              service gordo e Thymeleaf. Na Auto Escola quebrei as regras de agendamento em sete validadores
+              separados e joguei o e-mail numa fila, porque não fazia sentido o cadastro de uma aula depender do
+              humor do servidor SMTP. No Sistema de Ocorrência Escolar levei o hexagonal até o fim, com seis perfis
+              de acesso e o schema versionado em Flyway.
             </p>
             <p>
-              Hoje, meu objetivo é simples: conseguir um primeiro estágio ou posição júnior onde eu possa aplicar
-              esse mesmo rigor em escala real, com pessoas mais experientes revisando minhas decisões. Enquanto isso
-              não acontece, continuo estudando — sistemas distribuídos, Kafka, Kubernetes — e construindo projetos
-              que provem, com código, o que eu ainda não posso provar com tempo de empresa.
+              O que eu quero agora é entrar num time. Não porque falta certificado, mas porque tem um limite no que
+              dá pra aprender sozinho: ninguém revisa meu PR, ninguém me diz que aquela decisão vai doer daqui a
+              seis meses. Enquanto isso não vem, sigo estudando o que ainda não usei — Kafka, Kubernetes,
+              microsserviços — e construindo coisa que dá pra abrir e ler.
             </p>
           </Reveal>
 
@@ -65,7 +66,7 @@ export default function SobrePage() {
         <div className="mx-auto max-w-content px-6 py-20">
           <Reveal>
             <Eyebrow>Linha do tempo</Eyebrow>
-            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink">Como cheguei até aqui</h2>
+            <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink">Curso por curso, projeto por projeto</h2>
           </Reveal>
           <div className="mt-12">
             <TimelineList entries={timeline} />

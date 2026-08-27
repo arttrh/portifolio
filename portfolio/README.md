@@ -34,7 +34,7 @@ Edite ali e o site inteiro atualiza — não precisa mexer nos componentes.
 ## Estrutura
 
 ```
-app/                  rotas (Home, Sobre, Projetos, Tecnologias, Experiência, Certificados, Contato)
+app/                  rotas (Home, Sobre, Projetos, Tecnologias, Contato)
 components/ui/        primitivos estilo shadcn (Button, Card, Badge, Input, Textarea, Hexagon)
 components/layout/    Navbar, Footer, Lenis smooth scroll
 components/sections/  Hero, HexDiagram, ProjectCard, TechCard, TimelineList, etc.
@@ -45,9 +45,8 @@ types/                tipos TypeScript do conteúdo
 
 ## Pendências para você
 
-- O formulário de contato em `components/sections/contact-form.tsx` está
-  funcional na UI mas não envia e-mail de verdade ainda — plugue Resend,
-  Formspree, ou uma API route sua no lugar do `handleSubmit`.
 - Trocar `metadataBase` em `app/layout.tsx` pra sua URL real quando publicar.
+- Conferir se as duas medalhas de redação em `achievements` (lib/data.ts) são
+  mesmo duas — hoje elas aparecem como dois cards idênticos.
 - Adicionar uma foto sua é opcional — o hero atual usa o diagrama hexagonal no
   lugar de uma foto (proposital, pra não depender de placeholder).

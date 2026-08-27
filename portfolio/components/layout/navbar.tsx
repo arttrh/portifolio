@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Home, User, FolderGit2, Cpu, GraduationCap, Award, Mail } from "lucide-react";
+import { Home, User, FolderGit2, Cpu, Mail } from "lucide-react";
 import { Hexagon } from "@/components/ui/hexagon";
 import { cn } from "@/lib/utils";
 import { useScrollDirection } from "@/hooks/use-scroll-direction";
@@ -13,8 +13,6 @@ const navItems = [
   { href: "/sobre", label: "Sobre", icon: User },
   { href: "/projetos", label: "Projetos", icon: FolderGit2 },
   { href: "/tecnologias", label: "Tecnologias", icon: Cpu },
-  { href: "/experiencia", label: "Experiência", icon: GraduationCap },
-  { href: "/certificados", label: "Certificados", icon: Award },
   { href: "/contato", label: "Contato", icon: Mail },
 ];
 

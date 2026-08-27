@@ -34,10 +34,3 @@ export interface Achievement {
   issuer: string;
   year: string;
 }
-
-export interface Certificate {
-  name: string;
-  issuer: string;
-  year?: string;
-  status: "concluido" | "em-andamento";
-}

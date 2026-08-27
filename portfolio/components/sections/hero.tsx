@@ -25,7 +25,7 @@ export function Hero() {
       <div className="mx-auto grid max-w-content items-center gap-16 px-6 pt-40 pb-24 sm:pt-48 sm:pb-28 lg:grid-cols-[1.05fr_1fr]">
         <motion.div initial="hidden" animate="visible" variants={container}>
           <motion.div variants={item} className="flex items-center gap-3">
-            <Eyebrow>Backend em formação · São Paulo</Eyebrow>
+            <Eyebrow>Backend · São Paulo</Eyebrow>
           </motion.div>
 
           <motion.h1 variants={item} className="mt-5 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-6xl">

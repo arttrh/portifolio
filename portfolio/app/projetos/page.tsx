@@ -10,8 +10,8 @@ export default function ProjetosPage() {
     <>
       <PageHeader
         eyebrow="Projetos"
-        title="Cada projeto, uma decisão de arquitetura"
-        description="Sem experiência profissional ainda, meus projetos pessoais são onde aplico — e testo — o mesmo rigor que eu levaria para um time de verdade."
+        title="Três APIs, três problemas diferentes"
+        description="Cada um resolve uma coisa que o anterior não resolvia: controle de acesso por perfil, agendamento com regras encadeadas, pedido puxando estoque. O código está todo aberto."
       />
       <section className="mx-auto max-w-content px-6 pb-24">
         <div className="grid gap-6 lg:grid-cols-2">

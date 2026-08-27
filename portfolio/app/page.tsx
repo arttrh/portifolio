@@ -16,13 +16,13 @@ export default function Home() {
         <div className="mx-auto max-w-content px-6 py-24">
           <Reveal className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <Eyebrow>Projetos em destaque</Eyebrow>
+              <Eyebrow>Projetos</Eyebrow>
               <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-                Construído com arquitetura em mente
+                O que eu construí até agora
               </h2>
             </div>
             <Link href="/projetos" className={buttonVariants({ variant: "outline" })}>
-              Todos os projetos <ArrowRight size={15} />
+              Ver todos <ArrowRight size={15} />
             </Link>
           </Reveal>
 
@@ -37,9 +37,9 @@ export default function Home() {
       <section className="border-t border-line">
         <div className="mx-auto max-w-content px-6 py-24">
           <Reveal>
-            <Eyebrow>Conquistas</Eyebrow>
+            <Eyebrow>Fora do código</Eyebrow>
             <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              Excelência antes da carreira
+              Antes de programar, eu competia
             </h2>
           </Reveal>
           <div className="mt-10 grid gap-4 sm:grid-cols-3">

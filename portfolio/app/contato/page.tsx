@@ -4,7 +4,6 @@ import { PageHeader } from "@/components/sections/page-header";
 import { Reveal } from "@/components/sections/reveal";
 import { ContactForm } from "@/components/sections/contact-form";
 import { profile } from "@/lib/data";
-import { useEffect } from "react";
 
 export const metadata: Metadata = { title: "Contato" };
 
@@ -19,8 +18,8 @@ export default function ContatoPage() {
     <>
       <PageHeader
         eyebrow="Contato"
-        title="Vamos conversar"
-        description="Aberto a oportunidades de estágio ou posição júnior em backend. Responda com o que precisar — leio tudo."
+        title="Me chama"
+        description="Procuro estágio ou primeira vaga júnior em backend. Se for sobre vaga, sobre código ou só uma dúvida sobre algum projeto daqui, pode mandar — eu respondo."
       />
       <section className="mx-auto max-w-content px-6 pb-24">
         <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr]">

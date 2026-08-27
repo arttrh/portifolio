@@ -22,8 +22,8 @@ export default function TecnologiasPage() {
     <>
       <PageHeader
         eyebrow="Tecnologias"
-        title="Ferramentas que eu realmente uso"
-        description="Organizado por categoria, com nível honesto — sem inflar o que ainda está em aprendizado."
+        title="O que eu uso, e o quanto eu uso"
+        description="Separei o que já está no dia a dia do que ainda estou aprendendo. Se está marcado como aprendendo, é porque ainda não usei em projeto — e prefiro dizer isso na entrevista pelo site."
       />
       <section className="mx-auto max-w-content space-y-16 px-6 pb-24">
         {categories.map((category) => {
