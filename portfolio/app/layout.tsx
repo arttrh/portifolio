@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: `%s · ${profile.name}`,
   },
   description: profile.summary,
-  keywords: ["Arthur Lucas", "Backend Developer", "Java", "Spring Boot", "Arquitetura Hexagonal", "Portfolio"],
+  keywords: ["Arthur Lucas", "Backend Developer", "Java", "Spring Boot", "API REST", "Portfolio"],
   authors: [{ name: profile.name, url: profile.github }],
   openGraph: {
     title: `${profile.name} — ${profile.role}`,

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Github, Linkedin, ArrowRight, MapPin } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Eyebrow } from "@/components/sections/eyebrow";
-import { HexDiagram } from "@/components/sections/hex-diagram";
+import Image from "next/image";
 import { StatRow } from "@/components/sections/stat-row";
 import { profile } from "@/lib/data";
 
@@ -79,11 +79,21 @@ export function Hero() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="justify-self-center lg:justify-self-end"
         >
-          <HexDiagram />
+          <div className="relative aspect-square w-64 overflow-hidden rounded-xl2 border border-line sm:w-80 lg:w-[22rem]">
+            <Image
+              src={profile.photo}
+              alt={profile.name}
+              fill
+              priority
+              sizes="(max-width: 640px) 16rem, (max-width: 1024px) 20rem, 22rem"
+              className="object-cover"
+            />
+          </div>
         </motion.div>
       </div>
     </section>

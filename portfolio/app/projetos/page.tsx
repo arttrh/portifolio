@@ -11,7 +11,7 @@ export default function ProjetosPage() {
       <PageHeader
         eyebrow="Projetos"
         title="Três APIs, três problemas diferentes"
-        description="Cada um resolve uma coisa que o anterior não resolvia: controle de acesso por perfil, agendamento com regras encadeadas, pedido puxando estoque. O código está todo aberto."
+        description="Cada um resolve uma coisa que o anterior não resolvia: controle de acesso por perfil, agendamento com regras encadeadas, pedido puxando estoque. O código está todo aberto — pode entrar e ler."
       />
       <section className="mx-auto max-w-content px-6 pb-24">
         <div className="grid gap-6 lg:grid-cols-2">

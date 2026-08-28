@@ -1,7 +1,8 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
-const DESTINO = "arthurlucasx696@gmail.com";
+const DESTINO = process.env.CONTACT_TO_EMAIL ?? "arthurlucasx696@gmail.com";
+const REMETENTE = process.env.CONTACT_FROM_EMAIL ?? "Portfolio <onboarding@resend.dev>";
 
 function escaparHtml(valor: string) {
   return valor
@@ -38,7 +39,7 @@ export async function POST(req: Request) {
     const resend = new Resend(apiKey);
 
     await resend.emails.send({
-      from: "Portfolio <onboarding@resend.dev>",
+      from: REMETENTE,
       to: DESTINO,
       subject: `Novo contato — ${escaparHtml(name)}`,
       replyTo: email,

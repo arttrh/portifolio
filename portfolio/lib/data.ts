@@ -1,23 +1,24 @@
-import type { Achievement, Project, Technology, TimelineEntry } from "@/types";
+import type { Achievement, Book, Certificate, Project, SetupItem, Technology, TimelineEntry } from "@/types";
 
 export const profile = {
   name: "Arthur Lucas",
   role: "Backend Developer",
-  focus: "Java · Spring Boot · Arquitetura Hexagonal",
+  focus: "Java · Spring Boot · APIs REST",
   location: "São Paulo, SP",
   email: "arthurlucasx696@gmail.com",
   github: "https://github.com/arttrh",
   githubHandle: "github.com/arttrh",
   linkedin: "https://linkedin.com/in/arthurlucaas",
   linkedinHandle: "linkedin.com/in/arthurlucaas",
+  photo: "/arthur.jpg",
   summary:
-    "Desenvolvo backend em Java e Spring Boot. Gosto da parte que quase ninguém vê: separar regra de negócio de framework, decidir o que pode falhar sem derrubar o resto e deixar o ambiente rodando com um comando. Meus projetos são onde eu treino isso.",
+    "Desenvolvo backend em Java e Spring Boot. Gosto da parte que quase ninguém vê: modelar a regra de negócio direito, decidir o que pode falhar sem derrubar o resto e deixar o ambiente subindo com um comando só. Meus projetos são onde eu treino isso.",
 };
 
 export const stats = [
   { label: "APIs que escrevi do zero", value: "3" },
-  { label: "Medalhas de ouro em olimpíadas", value: "3" },
-  { label: "Anos desde a primeira linha de código", value: "3" },
+  { label: "Medalhas em olimpíadas", value: "3" },
+  { label: "Certificados concluídos", value: "5" },
 ];
 
 export const projects: Project[] = [
@@ -27,16 +28,16 @@ export const projects: Project[] = [
     period: "Jun 2026",
     tagline: "API para registrar ocorrências escolares, com acesso separado por perfil.",
     description:
-      "Uma escola precisa registrar ocorrência de aluno, e quem registra não é quem analisa nem quem decide. Daí a API tem seis perfis (professor, administrativo, analista, coordenador e admin), cada um enxergando uma fatia diferente. Foi o projeto onde levei arquitetura hexagonal até o fim: o domínio não importa nada de Spring, e trocar Postgres por outra coisa é mexer só no adapter de saída.",
+      "Uma escola precisa registrar ocorrência de aluno, e quem registra não é quem analisa nem quem decide. Por isso a API tem seis perfis — professor, administrativo, analista, coordenador e admin — cada um enxergando uma fatia diferente. É o projeto mais completo dos três, e o único onde a estrutura do código é verificada por teste automatizado.",
     architecture:
-      "Ports & adapters: application/core guarda os casos de uso e as validações, as portas de entrada e saída são interfaces, e os adapters (controller, repository, mapper) ficam plugados nas bordas.",
+      "Domínio isolado no centro, contratos como interfaces e implementações concretas nas bordas. Quatorze testes de ArchUnit rodam no mvn test e quebram o build se algum import atravessar uma fronteira que não devia.",
     challenges: [
-      "Escrevi as portas antes dos adapters. Parece frescura, mas é o que impede a regra de negócio de virar refém de anotação de framework.",
+      "Escrevi um teste que fiscaliza a arquitetura: se alguém importar Spring dentro do domínio, ou fizer um adapter conversar com outro, o build cai antes de virar dívida técnica. Tem também um scanner de linha de comando em tools/arch_scan.py para uma varredura mais larga.",
       "Vincular aluno a turma tem regra: turma cancelada não aceita, aluno inativo não entra, turma cheia barra. Cada uma virou classe própria, em vez de um monte de if dentro do service.",
       "Nada é apagado de verdade: cada entidade tem enum de status e as listagens são separadas em ativos e inativos.",
       "Oito migrations no Flyway e ddl-auto em validate: quem cria tabela é a migration, não o Hibernate.",
     ],
-    stack: ["Java", "Spring Boot", "Spring Security", "JWT", "PostgreSQL", "Flyway", "Bucket4j", "Docker"],
+    stack: ["Java", "Spring Boot", "Spring Security", "JWT", "PostgreSQL", "Flyway", "ArchUnit", "Bucket4j", "Docker"],
     githubUrl: "https://github.com/arttrh/Ocorrencia-escolar",
   },
   {
@@ -47,7 +48,7 @@ export const projects: Project[] = [
     description:
       "Sistema de autoescola com aluno, instrutor e agenda de instruções. O problema interessante aqui não foi o CRUD, foi o agendamento: quando marcar uma aula é válido? A resposta virou uma cadeia de sete validadores independentes. E o e-mail de confirmação saiu do fluxo principal — vai pra uma fila, porque SMTP lento não pode segurar a resposta da API.",
     architecture:
-      "Hexagonal com validação em cadeia: cada regra de agendamento é um ValidadorAgendamento próprio, e o RabbitMQ desacopla o envio de e-mail do caso de uso.",
+      "Validação em cadeia: cada regra de agendamento é um ValidadorAgendamento próprio, injetado como lista, e o RabbitMQ desacopla o envio de e-mail do caso de uso.",
     challenges: [
       "Sete validadores separados pra marcar uma aula: instrutor disponível, instrutor ativo, aluno ativo, horário inteiro, dentro do funcionamento, antecedência mínima e limite diário do aluno.",
       "Tirar o e-mail do caminho crítico com RabbitMQ — se o Gmail demorar, o agendamento já respondeu há muito tempo.",
@@ -58,12 +59,12 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/arttrh/AUTOESCOLAN116",
   },
   {
-    slug: "cantina",
-    name: "Cantina Escolar",
+    slug: "cantina-senai",
+    name: "Cantina SENAI",
     period: "Mai 2026",
     tagline: "Pedidos e estoque de cantina, com telas server-side e API REST no mesmo projeto.",
     description:
-      "Meu projeto mais antigo dos três, e por isso mesmo o mais didático de olhar: MVC clássico com Spring, telas em Thymeleaf e uma API REST por cima do mesmo service. É onde dá pra ver como eu escrevia antes de me acostumar com ports e adapters — e é por isso que ele fica aqui.",
+      "A cantina vende produto que acaba — esse é o problema inteiro. Quando alguém fecha um pedido, o estoque cai junto, na mesma transação, e se zerar o produto sai do cardápio sozinho. Tem duas caras sobre o mesmo service: telas em Thymeleaf pra quem usa no dia a dia, e uma API REST pra quem quiser consumir de fora.",
     architecture:
       "Spring MVC em camadas (controller, service, repository) com DTOs de entrada e saída, handler global de erros e Thymeleaf pras telas.",
     challenges: [
@@ -88,17 +89,20 @@ export const technologies: Technology[] = [
   { name: "Flyway", category: "Banco de Dados", level: "Intermediário", description: "Migrations versionadas — o schema vive no repositório." },
   { name: "RabbitMQ", category: "Mensageria", level: "Intermediário", description: "Tirei o envio de e-mail do caminho crítico da API com ele." },
   { name: "SMTP", category: "Mensageria", level: "Intermediário", description: "E-mails de confirmação, com template Thymeleaf, disparados por um consumidor." },
-  { name: "Kafka", category: "Mensageria", level: "Aprendendo", description: "Estudando streaming de eventos — ainda não usei em projeto." },
+  { name: "Kafka", category: "Mensageria", level: "Aprendendo", description: "Vi no curso de mensageria da Alura; ainda não levei pra projeto." },
   { name: "Docker", category: "DevOps", level: "Confortável", description: "Todo projeto sobe com compose, banco e broker junto." },
   { name: "GitHub Actions", category: "DevOps", level: "Aprendendo", description: "Build e testes a cada push." },
   { name: "Git", category: "DevOps", level: "Confortável", description: "Branch, PR e histórico limpo." },
+  { name: "Linux", category: "DevOps", level: "Confortável", description: "Meu ambiente de trabalho — mais sobre isso na aba Setup." },
   { name: "Kubernetes", category: "DevOps", level: "Aprendendo", description: "Estudando orquestração — próximo passo depois do Docker." },
-  { name: "Arquitetura Hexagonal", category: "Arquitetura", level: "Confortável", description: "Ports & adapters em dois projetos, do domínio pra fora." },
   { name: "REST", category: "Arquitetura", level: "Confortável", description: "Design dos endpoints, status codes e contratos de request/response." },
   { name: "JWT", category: "Arquitetura", level: "Intermediário", description: "Autenticação sem sessão, com perfil dentro do token." },
   { name: "OpenAPI / Swagger", category: "Arquitetura", level: "Intermediário", description: "Documentação dos endpoints gerada junto com o código." },
+  { name: "ArchUnit", category: "Arquitetura", level: "Intermediário", description: "Testes que fiscalizam a estrutura do projeto e quebram o build se ela for furada." },
+  { name: "Ports & Adapters", category: "Arquitetura", level: "Confortável", description: "Padrão que uso quando o projeto pede isolamento do domínio." },
   { name: "Microsserviços", category: "Arquitetura", level: "Aprendendo", description: "Estudando decomposição e comunicação entre serviços." },
-  { name: "IntelliJ IDEA", category: "Ferramentas", level: "Confortável", description: "Onde passo o dia." },
+  { name: "Neovim", category: "Ferramentas", level: "Confortável", description: "Onde passo o dia." },
+  { name: "IntelliJ IDEA", category: "Ferramentas", level: "Confortável", description: "Quando o projeto Java pede refactor pesado." },
   { name: "Postman / Insomnia", category: "Ferramentas", level: "Confortável", description: "Testar endpoint na mão antes de confiar nele." },
   { name: "Linear", category: "Ferramentas", level: "Intermediário", description: "Organização das tarefas dos projetos." },
 ];
@@ -113,15 +117,15 @@ export const timeline: TimelineEntry[] = [
     kind: "formacao",
   },
   {
-    title: "Desenvolvedor Back-end Java",
+    title: "Desenvolvedor Back-end",
     institution: "SENAI Frederico Jacob",
-    period: "Fev 2026 – Mai 2026",
+    period: "Jan 2026 – Mai 2026",
     description:
-      "Orientação a objetos levada a sério, persistência e as boas práticas que eu vinha usando de ouvido até então.",
+      "160 horas de orientação a objetos levada a sério, persistência e as boas práticas que eu vinha usando de ouvido até então.",
     kind: "curso",
   },
   {
-    title: "Cantina Escolar",
+    title: "Cantina SENAI",
     institution: "Projeto de curso",
     period: "Mai 2026",
     description:
@@ -133,7 +137,7 @@ export const timeline: TimelineEntry[] = [
     institution: "SENAI Orlando Laviero Ferraiuolo",
     period: "Mar 2026 – Jun 2026",
     description:
-      "Curso de API REST com Spring Boot — foi aqui que caiu a ficha da arquitetura hexagonal.",
+      "120 horas construindo API REST com Spring Boot — a base direta dos dois projetos que vieram depois.",
     kind: "curso",
   },
   {
@@ -149,15 +153,78 @@ export const timeline: TimelineEntry[] = [
     institution: "Projeto próprio",
     period: "Jun 2026",
     description:
-      "O mais completo até aqui: hexagonal do começo ao fim, seis perfis de acesso e schema versionado com Flyway.",
+      "O mais completo até aqui: seis perfis de acesso, schema versionado com Flyway e testes que fiscalizam a própria estrutura do código.",
     kind: "projeto",
   },
 ];
 
 export const achievements: Achievement[] = [
-  { title: "Medalha de Ouro — Redação", issuer: "Olimpíada de Redação SP", year: "2024" },
-  { title: "Medalha de Ouro — Redação", issuer: "Olimpíada de Redação SP", year: "2024" },
-  { title: "Medalha de Ouro — Matemática", issuer: "OMASP", year: "2025" },
+  { title: "Medalha — Olimpíada de Matemática", issuer: "OMASP", year: "2025" },
+  { title: "Medalha — Olimpíada de Redação", issuer: "Olimpíada de Redação SP", year: "2024" },
+  { title: "Medalha — Olimpíada Nacional de Ciências", issuer: "USP", year: "2024" },
+];
+
+export const certificates: Certificate[] = [
+  {
+    name: "Desenvolvedor Back-end",
+    issuer: "SENAI Frederico Jacob",
+    hours: "160 horas",
+    period: "Jan – Mai 2026",
+  },
+  {
+    name: "Desenvolvimento de API REST com Spring Boot",
+    issuer: "SENAI Orlando Laviero Ferraiuolo",
+    hours: "120 horas",
+    period: "Mar – Jun 2026",
+  },
+  {
+    name: "Spring Boot 3: desenvolva uma API Rest em Java",
+    issuer: "Alura",
+    hours: "10 horas",
+    period: "Mai 2026",
+    verifyUrl: "https://cursos.alura.com.br/certificate/9e023139-5742-4a24-8d00-61cefd818cae",
+  },
+  {
+    name: "Docker: construindo imagens para produção",
+    issuer: "Alura",
+    hours: "8 horas",
+    period: "Jun 2026",
+    verifyUrl: "https://cursos.alura.com.br/certificate/a0e98fdd-3821-4ace-976b-b100d4969fd8",
+  },
+  {
+    name: "Mensageria com Java: RabbitMQ e Kafka",
+    issuer: "Alura",
+    hours: "14 horas",
+    period: "Jun 2026",
+    verifyUrl: "https://cursos.alura.com.br/certificate/aaf3fa87-8c5d-4727-ad06-7eae022d292e",
+  },
+];
+
+export const books: Book[] = [
+  {
+    title: "Arquitetura Limpa",
+    author: "Robert C. Martin",
+    cover: "/livros/arquitetura-limpa.jpg",
+    status: "lendo",
+    note:
+      "Peguei depois de já ter organizado dois projetos por instinto, e o livro foi colocando nome no que eu vinha fazendo sem saber explicar.",
+  },
+  {
+    title: "Implementando Domain-Driven Design",
+    author: "Vaughn Vernon",
+    cover: "/livros/implementando-ddd.jpg",
+    status: "quero-ler",
+    note:
+      "Próximo da fila. Quero entender como modelar o domínio antes de sair criando classe, que é onde eu ainda erro.",
+  },
+];
+
+export const setup: SetupItem[] = [
+  { category: "Sistema", name: "Linux", description: "Sistema do dia a dia, pra desenvolver e pra tudo o resto." },
+  { category: "Sistema", name: "Wayland", description: "Servidor gráfico." },
+  { category: "Editor", name: "Neovim", description: "Editor principal, configurado por mim." },
+  { category: "Desenvolvimento", name: "Docker", description: "Banco, broker e app subindo por compose em vez de instalados na máquina." },
+  { category: "Desenvolvimento", name: "Git", description: "Controle de versão, direto do terminal." },
 ];
 
 export const languages = [

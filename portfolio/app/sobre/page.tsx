@@ -26,23 +26,23 @@ export default function SobrePage() {
               <em className="text-ink not-italic font-medium">como</em> vai funcionar.
             </p>
             <p>
-              Java e Spring Boot vieram naturalmente, e junto veio uma birra específica: arquitetura hexagonal. A
-              primeira vez que li sobre ports e adapters eu não entendi direito, achei firula. Entendi quando
-              precisei trocar uma coisa de lugar num projeto antigo e tive que mexer em quinze arquivos. Hoje eu
-              escrevo a porta antes do adapter, e não é por disciplina — é preguiça bem investida.
+              Java e Spring Boot vieram naturalmente, e com eles o assunto que mais me pegou: o que acontece com um
+              projeto conforme ele cresce. Aprendi isso do jeito chato — precisei mudar uma coisa de lugar num
+              projeto antigo e acabei mexendo em quinze arquivos. Desde então penso duas vezes antes de deixar uma
+              regra de negócio depender de framework, mas não é dogma: cada projeto pede um nível diferente disso.
             </p>
             <p>
-              Os projetos aqui do site foram onde isso ficou de pé. Na Cantina eu ainda estava no MVC clássico, com
-              service gordo e Thymeleaf. Na Auto Escola quebrei as regras de agendamento em sete validadores
-              separados e joguei o e-mail numa fila, porque não fazia sentido o cadastro de uma aula depender do
-              humor do servidor SMTP. No Sistema de Ocorrência Escolar levei o hexagonal até o fim, com seis perfis
-              de acesso e o schema versionado em Flyway.
+              Dá pra ver a diferença nos três que estão aqui. Na Cantina eu ainda escrevia tudo em camadas, com
+              service gordo e Thymeleaf, e funciona bem. Na Auto Escola quebrei as regras de agendamento em sete
+              validadores separados e joguei o e-mail numa fila, porque cadastro de aula não pode depender do humor
+              do servidor SMTP. No Sistema de Ocorrência Escolar fui mais longe e escrevi testes que fiscalizam a
+              própria estrutura do código: se alguém importar Spring onde não devia, o build cai.
             </p>
             <p>
               O que eu quero agora é entrar num time. Não porque falta certificado, mas porque tem um limite no que
               dá pra aprender sozinho: ninguém revisa meu PR, ninguém me diz que aquela decisão vai doer daqui a
-              seis meses. Enquanto isso não vem, sigo estudando o que ainda não usei — Kafka, Kubernetes,
-              microsserviços — e construindo coisa que dá pra abrir e ler.
+              seis meses. Enquanto isso não vem, sigo estudando o que ainda não usei — Kafka, Kubernetes — e
+              construindo coisa que dá pra abrir e ler.
             </p>
           </Reveal>
 
