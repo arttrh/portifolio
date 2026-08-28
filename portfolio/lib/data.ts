@@ -15,9 +15,9 @@ export const profile = {
 };
 
 export const stats = [
-  { label: "APIs construídas do zero", value: "3" },
+  { label: "APIs que escrevi do zero", value: "3" },
   { label: "Medalhas de ouro em olimpíadas", value: "3" },
-  { label: "Anos estudando desenvolvimento", value: "3" },
+  { label: "Anos desde a primeira linha de código", value: "3" },
 ];
 
 export const projects: Project[] = [
@@ -29,12 +29,12 @@ export const projects: Project[] = [
     description:
       "Uma escola precisa registrar ocorrência de aluno, e quem registra não é quem analisa nem quem decide. Daí a API tem seis perfis (professor, administrativo, analista, coordenador e admin), cada um enxergando uma fatia diferente. Foi o projeto onde levei arquitetura hexagonal até o fim: o domínio não importa nada de Spring, e trocar Postgres por outra coisa é mexer só no adapter de saída.",
     architecture:
-      "Hexagonal de verdade: application/core com os casos de uso e as validações, ports de entrada e saída como interfaces, e adapters (controller, repository, mapper) plugados nas bordas.",
+      "Ports & adapters: application/core guarda os casos de uso e as validações, as portas de entrada e saída são interfaces, e os adapters (controller, repository, mapper) ficam plugados nas bordas.",
     challenges: [
-      "Escrever as portas antes dos adapters. Parece detalhe, mas é o que impede a regra de negócio de virar refém da anotação do framework.",
-      "As validações de vínculo aluno–turma e turma cheia viraram classes próprias em vez de if espalhado dentro do service.",
+      "Escrevi as portas antes dos adapters. Parece frescura, mas é o que impede a regra de negócio de virar refém de anotação de framework.",
+      "Vincular aluno a turma tem regra: turma cancelada não aceita, aluno inativo não entra, turma cheia barra. Cada uma virou classe própria, em vez de um monte de if dentro do service.",
       "Nada é apagado de verdade: cada entidade tem enum de status e as listagens são separadas em ativos e inativos.",
-      "Schema versionado com Flyway em oito migrations, com ddl-auto em validate — o banco é a migration, não o Hibernate.",
+      "Oito migrations no Flyway e ddl-auto em validate: quem cria tabela é a migration, não o Hibernate.",
     ],
     stack: ["Java", "Spring Boot", "Spring Security", "JWT", "PostgreSQL", "Flyway", "Bucket4j", "Docker"],
     githubUrl: "https://github.com/arttrh/Ocorrencia-escolar",
@@ -52,7 +52,7 @@ export const projects: Project[] = [
       "Sete validadores separados pra marcar uma aula: instrutor disponível, instrutor ativo, aluno ativo, horário inteiro, dentro do funcionamento, antecedência mínima e limite diário do aluno.",
       "Tirar o e-mail do caminho crítico com RabbitMQ — se o Gmail demorar, o agendamento já respondeu há muito tempo.",
       "Um docker compose up sobe API, MySQL e RabbitMQ com healthcheck, e a app só sobe depois que os dois estão de pé.",
-      "Perfis de acesso com JWT e cache Caffeine nas consultas que mais repetem.",
+      "Perfis de acesso no JWT, e cache Caffeine nas consultas que mais se repetiam.",
     ],
     stack: ["Java", "Spring Boot", "JWT", "MySQL", "Flyway", "RabbitMQ", "Caffeine", "Thymeleaf", "OpenAPI", "Docker"],
     githubUrl: "https://github.com/arttrh/AUTOESCOLAN116",
@@ -69,7 +69,7 @@ export const projects: Project[] = [
     challenges: [
       "Pedido e estoque no mesmo fluxo: finalizar um pedido tem que dar baixa nos produtos sem deixar o estoque negativo.",
       "Ciclo de vida do pedido em enum (criado, em preparação, finalizado, cancelado) em vez de string solta no banco.",
-      "Um handler global concentra as exceções de domínio, então o controller não fica cheio de try/catch.",
+      "Um handler global junta as exceções de domínio num lugar só, e o controller para de ser uma pilha de try/catch.",
       "Build no GitHub Actions a cada push, pra não descobrir que quebrou só na hora de apresentar.",
     ],
     stack: ["Java", "Spring Boot", "Spring Data JPA", "Thymeleaf", "MySQL", "Docker", "GitHub Actions"],
