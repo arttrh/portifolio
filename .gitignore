@@ -4,3 +4,4 @@ portfolio/out
 **/.env*
 .DS_Store
 *.tsbuildinfo
+!portfolio/.env.example

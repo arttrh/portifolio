@@ -1,36 +1,87 @@
-import { Resend } from 'resend'
-import { NextResponse } from 'next/server'
+import { Resend } from "resend";
+import { NextResponse } from "next/server";
+import { checarRateLimit, identificarOrigem } from "@/lib/rate-limit";
+import { formatoValido, dominioRecebeEmail } from "@/lib/validar-email";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const DESTINO = process.env.CONTACT_TO_EMAIL ?? "arthurlucasx696@gmail.com";
+const REMETENTE = process.env.CONTACT_FROM_EMAIL ?? "Portfolio <onboarding@resend.dev>";
 
-export async function POST(req: Request){
-    try{
-        const {name, email, message} = await req.json();
+function escaparHtml(valor: string) {
+  return valor
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
 
-        const resultado = await resend.emails.send({
-            from: "Porfolio <onboarding@resend.dev>",
-            to: "arthurlucasx696@gmail.com",
-            subject: "Novo contato",
-            replyTo: email,
-            html:
-            `
-        <h2>Novo contato</h2>
+export async function POST(req: Request) {
+  const origem = identificarOrigem(req);
+  const limite = checarRateLimit(origem);
 
-        <p><strong>Nome:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
+  if (!limite.permitido) {
+    const mensagem =
+      limite.motivo === "banido"
+        ? "Muitas tentativas nas últimas horas. Esse IP foi bloqueado temporariamente."
+        : "Muitas mensagens em pouco tempo. Tente novamente daqui a pouco.";
+    return NextResponse.json(
+      { success: false, error: mensagem },
+      { status: 429, headers: { "Retry-After": String(limite.retryAfterSegundos) } }
+    );
+  }
 
-        <p><strong>Mensagem:</strong></p>
+  const apiKey = process.env.RESEND_API_KEY;
 
-        <p>${message}</p>
-      `,
-        });
-        console.log("RESEND:", resultado);
-        return NextResponse.json({success: true});
-    } catch(error){
-        console.error(error);
-        return NextResponse.json(
-            { success: false },
-            {status: 500}
-        );
+  if (!apiKey) {
+    console.error("RESEND_API_KEY não configurada.");
+    return NextResponse.json({ success: false }, { status: 500 });
+  }
+
+  try {
+    const { name, email, message } = await req.json();
+
+    if (
+      typeof name !== "string" ||
+      typeof email !== "string" ||
+      typeof message !== "string" ||
+      !name.trim() ||
+      !email.trim() ||
+      !message.trim()
+    ) {
+      return NextResponse.json({ success: false, error: "Preencha todos os campos." }, { status: 400 });
     }
-} 
+
+    if (!formatoValido(email)) {
+      return NextResponse.json({ success: false, error: "E-mail em formato inválido." }, { status: 400 });
+    }
+
+    if (!(await dominioRecebeEmail(email))) {
+      return NextResponse.json(
+        { success: false, error: "Esse domínio de e-mail não existe ou não recebe mensagens." },
+        { status: 400 }
+      );
+    }
+
+    // O client só é instanciado aqui: no topo do módulo ele quebra o build
+    // em qualquer ambiente sem a chave.
+    const resend = new Resend(apiKey);
+
+    await resend.emails.send({
+      from: REMETENTE,
+      to: DESTINO,
+      subject: `Novo contato — ${escaparHtml(name)}`,
+      replyTo: email,
+      html: `
+        <h2>Novo contato</h2>
+        <p><strong>Nome:</strong> ${escaparHtml(name)}</p>
+        <p><strong>Email:</strong> ${escaparHtml(email)}</p>
+        <p><strong>Mensagem:</strong></p>
+        <p>${escaparHtml(message).replace(/\n/g, "<br>")}</p>
+      `,
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ success: false }, { status: 500 });
+  }
+}

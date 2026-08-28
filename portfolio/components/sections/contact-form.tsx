@@ -34,14 +34,15 @@ export function ContactForm() {
     });
 
     if (!response.ok) {
-      throw new Error("Erro ao enviar.");
+      const corpo = await response.json().catch(() => null);
+      throw new Error(corpo?.error ?? "Erro ao enviar.");
     }
 
     setStatus("sent");
     form.reset();
   } catch (error) {
     console.error(error);
-    alert("Erro ao enviar mensagem.");
+    alert(error instanceof Error ? error.message : "Erro ao enviar mensagem.");
   } finally {
     setLoading(false);
   }
@@ -59,7 +60,7 @@ export function ContactForm() {
           <Check size={22} />
         </div>
         <h3 className="font-display text-xl font-semibold text-ink">Mensagem enviada</h3>
-        <p className="max-w-xs text-[14px] text-graphite">Obrigado pelo contato — respondo assim que possível.</p>
+        <p className="max-w-xs text-[14px] text-graphite">Recebi. Respondo assim que der, normalmente no mesmo dia.</p>
       </motion.div>
     );
   }
@@ -82,7 +83,7 @@ export function ContactForm() {
         <label htmlFor="message" className="mb-1.5 block text-[13px] font-medium text-ink">
           Mensagem
         </label>
-        <Textarea id="message" name="message" placeholder="Como posso ajudar?" required />
+        <Textarea id="message" name="message" placeholder="Escreve à vontade" required />
       </div>
       <Button type="submit" className="w-full">
         Enviar mensagem <Send size={15} />

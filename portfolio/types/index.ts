@@ -38,6 +38,23 @@ export interface Achievement {
 export interface Certificate {
   name: string;
   issuer: string;
-  year?: string;
-  status: "concluido" | "em-andamento";
+  hours: string;
+  period: string;
+  /** Link público de verificação, quando o emissor oferece um. */
+  verifyUrl?: string;
+}
+
+export interface Book {
+  title: string;
+  author: string;
+  cover: string;
+  status: "lendo" | "quero-ler";
+  /** Por que este livro, na minha voz. */
+  note: string;
+}
+
+export interface SetupItem {
+  category: "Sistema" | "Editor" | "Terminal" | "Desenvolvimento";
+  name: string;
+  description: string;
 }

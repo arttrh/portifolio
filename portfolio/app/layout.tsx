@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./globals.css";
 import { Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
     template: `%s · ${profile.name}`,
   },
   description: profile.summary,
-  keywords: ["Arthur Lucas", "Backend Developer", "Java", "Spring Boot", "Arquitetura Hexagonal", "Portfolio"],
+  keywords: ["Arthur Lucas", "Backend Developer", "Java", "Spring Boot", "API REST", "Portfolio"],
   authors: [{ name: profile.name, url: profile.github }],
   openGraph: {
     title: `${profile.name} — ${profile.role}`,

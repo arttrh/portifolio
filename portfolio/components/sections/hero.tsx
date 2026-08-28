@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Github, Linkedin, ArrowRight, MapPin } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Eyebrow } from "@/components/sections/eyebrow";
-import { HexDiagram } from "@/components/sections/hex-diagram";
+import Image from "next/image";
 import { StatRow } from "@/components/sections/stat-row";
 import { profile } from "@/lib/data";
 
@@ -25,7 +25,7 @@ export function Hero() {
       <div className="mx-auto grid max-w-content items-center gap-16 px-6 pt-40 pb-24 sm:pt-48 sm:pb-28 lg:grid-cols-[1.05fr_1fr]">
         <motion.div initial="hidden" animate="visible" variants={container}>
           <motion.div variants={item} className="flex items-center gap-3">
-            <Eyebrow>Backend em formação · São Paulo</Eyebrow>
+            <Eyebrow>Backend · São Paulo</Eyebrow>
           </motion.div>
 
           <motion.h1 variants={item} className="mt-5 font-display text-5xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-6xl">
@@ -79,11 +79,21 @@ export function Hero() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="justify-self-center lg:justify-self-end"
         >
-          <HexDiagram />
+          <div className="relative aspect-square w-64 overflow-hidden rounded-xl2 border border-line sm:w-80 lg:w-[22rem]">
+            <Image
+              src={profile.photo}
+              alt={profile.name}
+              fill
+              priority
+              sizes="(max-width: 640px) 16rem, (max-width: 1024px) 20rem, 22rem"
+              className="object-cover"
+            />
+          </div>
         </motion.div>
       </div>
     </section>
