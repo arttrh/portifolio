@@ -13,9 +13,8 @@ export function PhotoBanner({ src, alt }: { src: string; alt: string }) {
             alt={alt}
             fill
             sizes="100vw"
-            className="object-cover object-top grayscale contrast-[1.05] transition-all duration-700 ease-out group-hover:grayscale-0"
+            className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
           />
-          <div className="pointer-events-none absolute inset-0 bg-signal mix-blend-multiply opacity-[0.18] transition-opacity duration-700 ease-out group-hover:opacity-0" />
         </div>
       </Reveal>
     </section>
