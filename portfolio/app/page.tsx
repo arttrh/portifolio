@@ -50,7 +50,7 @@ export default function Home() {
                 {profile.summary}
               </p>
               <p className="text-[15px] leading-relaxed text-graphite sm:text-base">
-                Quando saio da tela, gosto de explorar a cidade. Essa foto é de uma cerejeira que achei por aqui — esse tipo de coisa me faz parar e prestar atenção no detalhe, o que acaba sendo útil também na hora de escrever código.
+                Tirei essa foto no Parque do Carmo durante a época das cerejeiras. Fui lá só para ver, acabei ficando mais tempo do que planejei.
               </p>
               <div>
                 <Link href="/contato" className={buttonVariants({ variant: "outline" })}>
