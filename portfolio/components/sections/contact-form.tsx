@@ -34,14 +34,15 @@ export function ContactForm() {
     });
 
     if (!response.ok) {
-      throw new Error("Erro ao enviar.");
+      const corpo = await response.json().catch(() => null);
+      throw new Error(corpo?.error ?? "Erro ao enviar.");
     }
 
     setStatus("sent");
     form.reset();
   } catch (error) {
     console.error(error);
-    alert("Erro ao enviar mensagem.");
+    alert(error instanceof Error ? error.message : "Erro ao enviar mensagem.");
   } finally {
     setLoading(false);
   }

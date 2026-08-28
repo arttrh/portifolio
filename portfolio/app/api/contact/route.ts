@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { checarRateLimit, identificarOrigem } from "@/lib/rate-limit";
 
 const DESTINO = process.env.CONTACT_TO_EMAIL ?? "arthurlucasx696@gmail.com";
 const REMETENTE = process.env.CONTACT_FROM_EMAIL ?? "Portfolio <onboarding@resend.dev>";
@@ -13,6 +14,20 @@ function escaparHtml(valor: string) {
 }
 
 export async function POST(req: Request) {
+  const origem = identificarOrigem(req);
+  const limite = checarRateLimit(origem);
+
+  if (!limite.permitido) {
+    const mensagem =
+      limite.motivo === "banido"
+        ? "Muitas tentativas nas últimas horas. Esse IP foi bloqueado temporariamente."
+        : "Muitas mensagens em pouco tempo. Tente novamente daqui a pouco.";
+    return NextResponse.json(
+      { success: false, error: mensagem },
+      { status: 429, headers: { "Retry-After": String(limite.retryAfterSegundos) } }
+    );
+  }
+
   const apiKey = process.env.RESEND_API_KEY;
 
   if (!apiKey) {
