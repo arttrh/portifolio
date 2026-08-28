@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./globals.css";
 import { Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
