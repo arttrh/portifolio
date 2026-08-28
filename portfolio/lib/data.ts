@@ -222,16 +222,10 @@ export const books: Book[] = [
   },
 ];
 
-export const setup: SetupItem[] = [
-  { category: "Sistema", name: "Linux", description: "Sistema do dia a dia, pra desenvolver e pra tudo o resto." },
-  { category: "Sistema", name: "Wayland", description: "Servidor gráfico." },
-  { category: "Editor", name: "Neovim", description: "Editor principal, configurado por mim." },
-  { category: "Editor", name: "IntelliJ IDEA", description: "Projetos Java e Spring Boot." },
-  { category: "Editor", name: "Eclipse", description: "Também entra no fluxo Java, dependendo do projeto." },
-  { category: "Editor", name: "VS Code", description: "TypeScript, Node e o que fica fora do ecossistema Java." },
-  { category: "Desenvolvimento", name: "Docker", description: "Banco, broker e app subindo por compose em vez de instalados na máquina." },
-  { category: "Desenvolvimento", name: "Git", description: "Controle de versão, direto do terminal." },
-];
+// Fica vazio de propósito: o conteúdo real vem de um repositório à parte
+// (dotfiles + a máquina em si), ainda não criado. app/setup/page.tsx mostra
+// um estado "em construção" enquanto isso.
+export const setup: SetupItem[] = [];
 
 export const languages = [
   { name: "Português", level: "Nativo" },

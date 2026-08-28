@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { checarRateLimit, identificarOrigem } from "@/lib/rate-limit";
+import { formatoValido, dominioRecebeEmail } from "@/lib/validar-email";
 
 const DESTINO = process.env.CONTACT_TO_EMAIL ?? "arthurlucasx696@gmail.com";
 const REMETENTE = process.env.CONTACT_FROM_EMAIL ?? "Portfolio <onboarding@resend.dev>";
@@ -46,7 +47,18 @@ export async function POST(req: Request) {
       !email.trim() ||
       !message.trim()
     ) {
-      return NextResponse.json({ success: false }, { status: 400 });
+      return NextResponse.json({ success: false, error: "Preencha todos os campos." }, { status: 400 });
+    }
+
+    if (!formatoValido(email)) {
+      return NextResponse.json({ success: false, error: "E-mail em formato inválido." }, { status: 400 });
+    }
+
+    if (!(await dominioRecebeEmail(email))) {
+      return NextResponse.json(
+        { success: false, error: "Esse domínio de e-mail não existe ou não recebe mensagens." },
+        { status: 400 }
+      );
     }
 
     // O client só é instanciado aqui: no topo do módulo ele quebra o build
