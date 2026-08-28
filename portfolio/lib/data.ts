@@ -83,9 +83,12 @@ export const technologies: Technology[] = [
   { name: "Spring Boot", category: "Backend", level: "Confortável", description: "APIs REST, injeção de dependência, perfis de ambiente." },
   { name: "Spring Security", category: "Backend", level: "Intermediário", description: "Filtros de autenticação e autorização por perfil, sem sessão." },
   { name: "Spring Data JPA", category: "Backend", level: "Intermediário", description: "Persistência e mapeamento das entidades." },
+  { name: "TypeScript", category: "Backend", level: "Confortável", description: "Linguagem deste portfólio, e o que uso fora do ecossistema Java." },
+  { name: "NestJS", category: "Backend", level: "Intermediário", description: "Framework Node quando o projeto pede TypeScript no backend." },
   { name: "SQL", category: "Banco de Dados", level: "Confortável", description: "Modelagem e queries no dia a dia dos projetos." },
   { name: "PostgreSQL", category: "Banco de Dados", level: "Intermediário", description: "Banco do Sistema de Ocorrência Escolar." },
   { name: "MySQL", category: "Banco de Dados", level: "Intermediário", description: "Banco da Auto Escola e da Cantina." },
+  { name: "MongoDB", category: "Banco de Dados", level: "Intermediário", description: "Documento em vez de tabela, quando o modelo pede isso." },
   { name: "Flyway", category: "Banco de Dados", level: "Intermediário", description: "Migrations versionadas — o schema vive no repositório." },
   { name: "RabbitMQ", category: "Mensageria", level: "Intermediário", description: "Tirei o envio de e-mail do caminho crítico da API com ele." },
   { name: "SMTP", category: "Mensageria", level: "Intermediário", description: "E-mails de confirmação, com template Thymeleaf, disparados por um consumidor." },
@@ -103,7 +106,7 @@ export const technologies: Technology[] = [
   { name: "Microsserviços", category: "Arquitetura", level: "Aprendendo", description: "Estudando decomposição e comunicação entre serviços." },
   { name: "Neovim", category: "Ferramentas", level: "Confortável", description: "Onde passo o dia." },
   { name: "IntelliJ IDEA", category: "Ferramentas", level: "Confortável", description: "Quando o projeto Java pede refactor pesado." },
-  { name: "Postman / Insomnia", category: "Ferramentas", level: "Confortável", description: "Testar endpoint na mão antes de confiar nele." },
+  { name: "Postman", category: "Ferramentas", level: "Confortável", description: "Testar endpoint na mão antes de confiar nele." },
   { name: "Linear", category: "Ferramentas", level: "Intermediário", description: "Organização das tarefas dos projetos." },
 ];
 
@@ -223,6 +226,9 @@ export const setup: SetupItem[] = [
   { category: "Sistema", name: "Linux", description: "Sistema do dia a dia, pra desenvolver e pra tudo o resto." },
   { category: "Sistema", name: "Wayland", description: "Servidor gráfico." },
   { category: "Editor", name: "Neovim", description: "Editor principal, configurado por mim." },
+  { category: "Editor", name: "IntelliJ IDEA", description: "Projetos Java e Spring Boot." },
+  { category: "Editor", name: "Eclipse", description: "Também entra no fluxo Java, dependendo do projeto." },
+  { category: "Editor", name: "VS Code", description: "TypeScript, Node e o que fica fora do ecossistema Java." },
   { category: "Desenvolvimento", name: "Docker", description: "Banco, broker e app subindo por compose em vez de instalados na máquina." },
   { category: "Desenvolvimento", name: "Git", description: "Controle de versão, direto do terminal." },
 ];

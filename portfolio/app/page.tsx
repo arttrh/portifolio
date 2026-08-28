@@ -4,6 +4,7 @@ import { Hero } from "@/components/sections/hero";
 import { Reveal } from "@/components/sections/reveal";
 import { Eyebrow } from "@/components/sections/eyebrow";
 import { ProjectCard } from "@/components/sections/project-card";
+import { PhotoBanner } from "@/components/sections/photo-banner";
 import { buttonVariants } from "@/components/ui/button";
 import { projects, achievements } from "@/lib/data";
 
@@ -33,6 +34,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <PhotoBanner src="/cerejeira.jpg" alt="Cerejeira florida, foto pessoal" />
 
       <section className="border-t border-line">
         <div className="mx-auto max-w-content px-6 py-24">
