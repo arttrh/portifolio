@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Eyebrow } from "@/components/sections/eyebrow";
 import { ProjectNavigation } from "@/components/sections/project-navigation";
 import { buttonVariants } from "@/components/ui/button";
@@ -21,10 +20,6 @@ export default function ProjetosParalelosPage() {
       </header>
       <section className="mx-auto max-w-content px-6 pb-24">
         <ProjectNavigation active="paralelos" />
-        <p className="mb-12 max-w-2xl text-base leading-relaxed text-graphite">
-          A Cantina SENAI, meu projeto de curso, está entre os{" "}
-          <Link href="/projetos#cantina-senai" className="text-ink underline underline-offset-4">projetos em destaque</Link>.
-        </p>
         <div className="space-y-12">
           {parallelProjects.map((project) => (
             <article key={project.slug} aria-labelledby={project.slug} className="grid gap-6 sm:grid-cols-[1fr_auto]">

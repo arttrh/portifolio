@@ -83,6 +83,15 @@ export const parallelProjects: ParallelProject[] = [
     status: "Estudo",
   },
   {
+    slug: "conversor-numero",
+    name: "Conversor de números",
+    description: "Programa de terminal que consulta um serviço SOAP para escrever um número inteiro por extenso.",
+    details: "Usei JAX-WS e as classes geradas a partir do contrato WSDL para chamar a operação NumberToWords e mostrar a resposta no terminal.",
+    stack: ["Java", "SOAP", "JAX-WS", "Maven"],
+    githubUrl: "https://github.com/arttrh/ConversorNumero",
+    status: "Estudo",
+  },
+  {
     slug: "webflux",
     name: "Playlists com WebFlux",
     description: "Estudo de programação reativa com cadastro e consulta de playlists no MongoDB.",
