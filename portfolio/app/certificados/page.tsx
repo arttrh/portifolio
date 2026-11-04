@@ -14,8 +14,8 @@ export default function CertificadosPage() {
     <>
       <PageHeader
         eyebrow="Certificados"
-        title="Onde eu aprendi cada coisa"
-        description="Os do SENAI são cursos presenciais, com carga horária cheia. Os da Alura são online e têm link de verificação — pode conferir."
+        title="Cursos e certificados"
+        description="Cursos que concluí no SENAI e na Alura, com as datas e cargas horárias. Os certificados da Alura têm link de verificação."
       />
       <section className="mx-auto max-w-content space-y-14 px-6 pb-24">
         {emissores.map((emissor) => {

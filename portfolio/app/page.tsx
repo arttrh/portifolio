@@ -6,7 +6,7 @@ import { Reveal } from "@/components/sections/reveal";
 import { Eyebrow } from "@/components/sections/eyebrow";
 import { ProjectCard } from "@/components/sections/project-card";
 import { buttonVariants } from "@/components/ui/button";
-import { projects, achievements, profile } from "@/lib/data";
+import { projects, achievements } from "@/lib/data";
 
 export default function Home() {
   return (
@@ -19,7 +19,7 @@ export default function Home() {
             <div>
               <Eyebrow>Projetos</Eyebrow>
               <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-                O que eu construí até agora
+                Meus projetos
               </h2>
             </div>
             <Link href="/projetos" className={buttonVariants({ variant: "outline" })}>
@@ -43,14 +43,15 @@ export default function Home() {
               <div>
                 <Eyebrow>Sobre mim</Eyebrow>
                 <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-                  Além do código
+                  Estudos e projetos
                 </h2>
               </div>
-              <p className="text-[15px] leading-relaxed text-graphite sm:text-base">
-                {profile.summary}
+              <p className="text-base leading-relaxed text-graphite">
+                Estudei Análise e Desenvolvimento de Sistemas e fiz cursos de backend no SENAI.
+                Hoje estudo Java e Spring Boot e aplico o que aprendo nos projetos deste portfólio.
               </p>
-              <p className="text-[15px] leading-relaxed text-graphite sm:text-base">
-                Tirei essa foto no Parque do Carmo durante a época das cerejeiras. Fui lá só para ver, acabei ficando mais tempo do que planejei.
+              <p className="text-base leading-relaxed text-graphite">
+                Essa foto é do Parque do Carmo, em São Paulo, na época das cerejeiras.
               </p>
               <div>
                 <Link href="/contato" className={buttonVariants({ variant: "outline" })}>
@@ -79,7 +80,7 @@ export default function Home() {
           <Reveal>
             <Eyebrow>Fora do código</Eyebrow>
             <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              Antes de programar, eu competia
+              Olimpíadas estudantis
             </h2>
           </Reveal>
           <div className="mt-10 grid gap-4 sm:grid-cols-3">

@@ -60,7 +60,7 @@ export function ContactForm() {
           <Check size={22} />
         </div>
         <h3 className="font-display text-xl font-semibold text-ink">Mensagem enviada</h3>
-        <p className="max-w-xs text-[14px] text-graphite">Recebi. Respondo assim que der, normalmente no mesmo dia.</p>
+        <p className="max-w-xs text-base leading-relaxed text-graphite">Obrigado pela mensagem. Vou responder pelo e-mail que você informou.</p>
       </motion.div>
     );
   }
@@ -75,7 +75,7 @@ export function ContactForm() {
       </div>
       <div>
         <label htmlFor="email" className="mb-1.5 block text-[13px] font-medium text-ink">
-          Email
+          E-mail
         </label>
         <Input id="email" name="email" type="email" placeholder="voce@empresa.com" required />
       </div>
@@ -83,7 +83,7 @@ export function ContactForm() {
         <label htmlFor="message" className="mb-1.5 block text-[13px] font-medium text-ink">
           Mensagem
         </label>
-        <Textarea id="message" name="message" placeholder="Escreve à vontade" required />
+        <Textarea id="message" name="message" placeholder="Sobre o que você quer conversar?" required />
       </div>
       <Button type="submit" className="w-full">
         Enviar mensagem <Send size={15} />

@@ -36,7 +36,7 @@ export function Hero() {
             {profile.focus}
           </motion.p>
 
-          <motion.p variants={item} className="mt-6 max-w-lg text-[15px] leading-relaxed text-graphite sm:text-base">
+          <motion.p variants={item} className="mt-6 max-w-lg text-base leading-relaxed text-graphite">
             {profile.summary}
           </motion.p>
 

@@ -12,7 +12,7 @@ export const profile = {
   linkedinHandle: "linkedin.com/in/arthurlucaas",
   photo: "/arthur.jpg",
   summary:
-    "Desenvolvo backend em Java e Spring Boot. Gosto da parte que quase ninguém vê: modelar a regra de negócio direito, decidir o que pode falhar sem derrubar o resto e deixar o ambiente subindo com um comando só. Meus projetos são onde eu treino isso.",
+    "Sou desenvolvedor backend e uso Java e Spring Boot nos meus projetos. Estou buscando minha primeira oportunidade na área e reuni aqui o código e as decisões de cada trabalho.",
 };
 
 export const stats = [
@@ -26,16 +26,16 @@ export const projects: Project[] = [
     slug: "ocorrencia-escolar",
     name: "Sistema de Ocorrência Escolar",
     period: "Jun 2026",
-    tagline: "API para registrar ocorrências escolares, com acesso separado por perfil.",
+    tagline: "Registro de ocorrências de alunos, com validação de turma e acesso por perfil.",
     description:
-      "Uma escola precisa registrar ocorrência de aluno, e quem registra não é quem analisa nem quem decide. Por isso a API tem seis perfis — professor, administrativo, analista, coordenador e admin — cada um enxergando uma fatia diferente. É o projeto mais completo dos três, e o único onde a estrutura do código é verificada por teste automatizado.",
+      "Uma ocorrência precisa estar ligada ao aluno e à turma certos. Neste projeto, a API confere o vínculo e a situação dos cadastros antes de registrar a ocorrência. Também separei as permissões por perfil e mantive um histórico que pode ser consultado por aluno.",
     architecture:
-      "Domínio isolado no centro, contratos como interfaces e implementações concretas nas bordas. Quatorze testes de ArchUnit rodam no mvn test e quebram o build se algum import atravessar uma fronteira que não devia.",
+      "Separei as regras de negócio do código de HTTP, banco de dados e autenticação. Os testes com ArchUnit verificam essa separação para impedir, por exemplo, que o domínio passe a depender do Spring.",
     challenges: [
-      "Escrevi um teste que fiscaliza a arquitetura: se alguém importar Spring dentro do domínio, ou fizer um adapter conversar com outro, o build cai antes de virar dívida técnica. Tem também um scanner de linha de comando em tools/arch_scan.py para uma varredura mais larga.",
-      "Vincular aluno a turma tem regra: turma cancelada não aceita, aluno inativo não entra, turma cheia barra. Cada uma virou classe própria, em vez de um monte de if dentro do service.",
-      "Nada é apagado de verdade: cada entidade tem enum de status e as listagens são separadas em ativos e inativos.",
-      "Oito migrations no Flyway e ddl-auto em validate: quem cria tabela é a migration, não o Hibernate.",
+      "Antes de registrar uma ocorrência, os validadores conferem se o aluno está ativo, se a turma está ativa e se o aluno pertence a ela.",
+      "Na matrícula, cada regra tem seu próprio validador. O vínculo só é salvo depois das verificações de aluno, turma e disponibilidade de vaga.",
+      "Cancelar uma ocorrência muda seu status sem apagar o registro, para manter o histórico do aluno.",
+      "As mudanças no banco ficam em migrations do Flyway. Os testes de arquitetura também acompanham o código no repositório.",
     ],
     stack: ["Java", "Spring Boot", "Spring Security", "JWT", "PostgreSQL", "Flyway", "ArchUnit", "Bucket4j", "Docker"],
     githubUrl: "https://github.com/arttrh/Ocorrencia-escolar",
@@ -44,16 +44,16 @@ export const projects: Project[] = [
     slug: "auto-escola",
     name: "Auto Escola",
     period: "Abr 2026",
-    tagline: "API de agendamento de aulas com fila para os e-mails de confirmação.",
+    tagline: "Agendamento de aulas com validações de horário e confirmação por e-mail.",
     description:
-      "Sistema de autoescola com aluno, instrutor e agenda de instruções. O problema interessante aqui não foi o CRUD, foi o agendamento: quando marcar uma aula é válido? A resposta virou uma cadeia de sete validadores independentes. E o e-mail de confirmação saiu do fluxo principal — vai pra uma fila, porque SMTP lento não pode segurar a resposta da API.",
+      "Para marcar uma aula, preciso conferir o horário, a disponibilidade do instrutor e a situação do aluno. Separei essas verificações em validadores de agendamento. A confirmação por e-mail vai para uma fila no RabbitMQ e é enviada por um consumidor separado.",
     architecture:
-      "Validação em cadeia: cada regra de agendamento é um ValidadorAgendamento próprio, injetado como lista, e o RabbitMQ desacopla o envio de e-mail do caso de uso.",
+      "Cada regra implementa a interface ValidadorAgendamento, e o serviço executa a lista antes de salvar a aula. O envio de e-mail fica em um consumidor RabbitMQ, separado da requisição de agendamento.",
     challenges: [
-      "Sete validadores separados pra marcar uma aula: instrutor disponível, instrutor ativo, aluno ativo, horário inteiro, dentro do funcionamento, antecedência mínima e limite diário do aluno.",
-      "Tirar o e-mail do caminho crítico com RabbitMQ — se o Gmail demorar, o agendamento já respondeu há muito tempo.",
-      "Um docker compose up sobe API, MySQL e RabbitMQ com healthcheck, e a app só sobe depois que os dois estão de pé.",
-      "Perfis de acesso no JWT, e cache Caffeine nas consultas que mais se repetiam.",
+      "As validações conferem se aluno e instrutor estão ativos, se o horário é permitido, a antecedência da aula e o limite diário do aluno.",
+      "A disponibilidade do instrutor é consultada antes de salvar, para recusar um horário que já está ocupado.",
+      "Quando o instrutor não é informado, a aplicação busca um profissional disponível pela especialidade solicitada.",
+      "A API publica a notificação na fila. O consumidor faz o envio por SMTP, sem deixar essa comunicação dentro da requisição HTTP.",
     ],
     stack: ["Java", "Spring Boot", "JWT", "MySQL", "Flyway", "RabbitMQ", "Caffeine", "Thymeleaf", "OpenAPI", "Docker"],
     githubUrl: "https://github.com/arttrh/AUTOESCOLAN116",
@@ -62,16 +62,16 @@ export const projects: Project[] = [
     slug: "cantina-senai",
     name: "Cantina SENAI",
     period: "Mai 2026",
-    tagline: "Pedidos e estoque de cantina, com telas server-side e API REST no mesmo projeto.",
+    tagline: "Pedidos de cantina com reserva de estoque e acompanhamento do preparo.",
     description:
-      "A cantina vende produto que acaba — esse é o problema inteiro. Quando alguém fecha um pedido, o estoque cai junto, na mesma transação, e se zerar o produto sai do cardápio sozinho. Tem duas caras sobre o mesmo service: telas em Thymeleaf pra quem usa no dia a dia, e uma API REST pra quem quiser consumir de fora.",
+      "Aceitar um pedido sem conferir o saldo pode vender um produto que já acabou. No projeto, o estoque é reservado ao criar o pedido e devolvido no cancelamento. As telas do cliente e do funcionário usam as mesmas regras de negócio da API.",
     architecture:
-      "Spring MVC em camadas (controller, service, repository) com DTOs de entrada e saída, handler global de erros e Thymeleaf pras telas.",
+      "Usei Spring MVC, com controllers separados para as telas Thymeleaf e para a API REST. Os serviços concentram as regras de pedidos e estoque, e o JPA faz a persistência no MySQL.",
     challenges: [
-      "Pedido e estoque no mesmo fluxo: finalizar um pedido tem que dar baixa nos produtos sem deixar o estoque negativo.",
-      "Ciclo de vida do pedido em enum (criado, em preparação, finalizado, cancelado) em vez de string solta no banco.",
-      "Um handler global junta as exceções de domínio num lugar só, e o controller para de ser uma pilha de try/catch.",
-      "Build no GitHub Actions a cada push, pra não descobrir que quebrou só na hora de apresentar.",
+      "Dois pedidos podem disputar o último item. A consulta bloqueia o registro de estoque durante a transação para conferir o saldo e dar baixa.",
+      "Se algum item não tiver saldo, a transação é desfeita. Assim, o sistema não grava só uma parte do pedido.",
+      "Cancelar um pedido devolve as quantidades reservadas, sem apagar o histórico da compra.",
+      "O cliente só consulta os próprios pedidos. O funcionário acompanha a fila de preparo e as mudanças de status.",
     ],
     stack: ["Java", "Spring Boot", "Spring Data JPA", "Thymeleaf", "MySQL", "Docker", "GitHub Actions"],
     githubUrl: "https://github.com/arttrh/project-senai",
@@ -79,34 +79,34 @@ export const projects: Project[] = [
 ];
 
 export const technologies: Technology[] = [
-  { name: "Java", category: "Backend", level: "Confortável", since: "2023", description: "Linguagem que uso em tudo que construo." },
-  { name: "Spring Boot", category: "Backend", level: "Confortável", description: "APIs REST, injeção de dependência, perfis de ambiente." },
-  { name: "Spring Security", category: "Backend", level: "Intermediário", description: "Filtros de autenticação e autorização por perfil, sem sessão." },
-  { name: "Spring Data JPA", category: "Backend", level: "Intermediário", description: "Persistência e mapeamento das entidades." },
-  { name: "TypeScript", category: "Backend", level: "Confortável", description: "Linguagem deste portfólio, e o que uso fora do ecossistema Java." },
-  { name: "NestJS", category: "Backend", level: "Intermediário", description: "Framework Node quando o projeto pede TypeScript no backend." },
-  { name: "SQL", category: "Banco de Dados", level: "Confortável", description: "Modelagem e queries no dia a dia dos projetos." },
+  { name: "Java", category: "Backend", level: "Confortável", since: "2023", description: "Minha principal linguagem nos projetos de backend." },
+  { name: "Spring Boot", category: "Backend", level: "Confortável", description: "Uso para criar as APIs e configurar as aplicações Java." },
+  { name: "Spring Security", category: "Backend", level: "Intermediário", description: "Login e controle de acesso conforme o perfil do usuário." },
+  { name: "Spring Data JPA", category: "Backend", level: "Intermediário", description: "Mapeamento das entidades e consultas ao banco nas aplicações Java." },
+  { name: "TypeScript", category: "Backend", level: "Confortável", description: "Uso neste portfólio e em aplicações fora do ecossistema Java." },
+  { name: "NestJS", category: "Backend", level: "Intermediário", description: "Desenvolvimento de backend com Node.js e TypeScript." },
+  { name: "SQL", category: "Banco de Dados", level: "Confortável", description: "Criação de tabelas, relacionamentos e consultas nos projetos." },
   { name: "PostgreSQL", category: "Banco de Dados", level: "Intermediário", description: "Banco do Sistema de Ocorrência Escolar." },
   { name: "MySQL", category: "Banco de Dados", level: "Intermediário", description: "Banco da Auto Escola e da Cantina." },
-  { name: "MongoDB", category: "Banco de Dados", level: "Intermediário", description: "Documento em vez de tabela, quando o modelo pede isso." },
-  { name: "Flyway", category: "Banco de Dados", level: "Intermediário", description: "Migrations versionadas — o schema vive no repositório." },
-  { name: "RabbitMQ", category: "Mensageria", level: "Intermediário", description: "Tirei o envio de e-mail do caminho crítico da API com ele." },
-  { name: "SMTP", category: "Mensageria", level: "Intermediário", description: "E-mails de confirmação, com template Thymeleaf, disparados por um consumidor." },
-  { name: "Kafka", category: "Mensageria", level: "Aprendendo", description: "Vi no curso de mensageria da Alura; ainda não levei pra projeto." },
-  { name: "Docker", category: "DevOps", level: "Confortável", description: "Todo projeto sobe com compose, banco e broker junto." },
-  { name: "GitHub Actions", category: "DevOps", level: "Aprendendo", description: "Build e testes a cada push." },
-  { name: "Git", category: "DevOps", level: "Confortável", description: "Branch, PR e histórico limpo." },
-  { name: "Linux", category: "DevOps", level: "Confortável", description: "Meu ambiente de trabalho — mais sobre isso na aba Setup." },
-  { name: "Kubernetes", category: "DevOps", level: "Aprendendo", description: "Estudando orquestração — próximo passo depois do Docker." },
-  { name: "REST", category: "Arquitetura", level: "Confortável", description: "Design dos endpoints, status codes e contratos de request/response." },
-  { name: "JWT", category: "Arquitetura", level: "Intermediário", description: "Autenticação sem sessão, com perfil dentro do token." },
-  { name: "OpenAPI / Swagger", category: "Arquitetura", level: "Intermediário", description: "Documentação dos endpoints gerada junto com o código." },
-  { name: "ArchUnit", category: "Arquitetura", level: "Intermediário", description: "Testes que fiscalizam a estrutura do projeto e quebram o build se ela for furada." },
-  { name: "Ports & Adapters", category: "Arquitetura", level: "Confortável", description: "Padrão que uso quando o projeto pede isolamento do domínio." },
-  { name: "Microsserviços", category: "Arquitetura", level: "Aprendendo", description: "Estudando decomposição e comunicação entre serviços." },
-  { name: "Neovim", category: "Ferramentas", level: "Confortável", description: "Onde passo o dia." },
-  { name: "IntelliJ IDEA", category: "Ferramentas", level: "Confortável", description: "Quando o projeto Java pede refactor pesado." },
-  { name: "Postman", category: "Ferramentas", level: "Confortável", description: "Testar endpoint na mão antes de confiar nele." },
+  { name: "MongoDB", category: "Banco de Dados", level: "Intermediário", description: "Armazenamento e consultas com dados em documentos." },
+  { name: "Flyway", category: "Banco de Dados", level: "Intermediário", description: "Versionamento das mudanças do banco com migrations no repositório." },
+  { name: "RabbitMQ", category: "Mensageria", level: "Intermediário", description: "Fila usada para separar o envio de e-mail do agendamento de aulas." },
+  { name: "SMTP", category: "Mensageria", level: "Intermediário", description: "Envio das confirmações por e-mail no projeto de autoescola." },
+  { name: "Kafka", category: "Mensageria", level: "Aprendendo", description: "Estudei no curso de mensageria da Alura. Ainda não usei em um projeto próprio." },
+  { name: "Docker", category: "DevOps", level: "Confortável", description: "Ambientes com a aplicação, o banco e os serviços necessários para rodar o projeto." },
+  { name: "GitHub Actions", category: "DevOps", level: "Aprendendo", description: "Automação de build e testes nos repositórios." },
+  { name: "Git", category: "DevOps", level: "Confortável", description: "Versionamento do código e trabalho com branches e pull requests." },
+  { name: "Linux", category: "DevOps", level: "Confortável", description: "Sistema que uso no meu ambiente de desenvolvimento." },
+  { name: "Kubernetes", category: "DevOps", level: "Aprendendo", description: "Estou estudando como executar e organizar aplicações em contêineres." },
+  { name: "REST", category: "Arquitetura", level: "Confortável", description: "Definição de endpoints, métodos HTTP e dados de entrada e saída." },
+  { name: "JWT", category: "Arquitetura", level: "Intermediário", description: "Tokens usados na autenticação e na identificação do perfil de acesso." },
+  { name: "OpenAPI / Swagger", category: "Arquitetura", level: "Intermediário", description: "Documentação das rotas e dos formatos aceitos e retornados pela API." },
+  { name: "ArchUnit", category: "Arquitetura", level: "Intermediário", description: "Testes que verificam as dependências entre as partes da aplicação." },
+  { name: "Ports & Adapters", category: "Arquitetura", level: "Confortável", description: "Separação das regras de negócio dos detalhes de HTTP, banco e outros serviços." },
+  { name: "Microsserviços", category: "Arquitetura", level: "Aprendendo", description: "Estou estudando a separação de uma aplicação em serviços e a comunicação entre eles." },
+  { name: "Neovim", category: "Ferramentas", level: "Confortável", description: "Editor que uso no meu ambiente Linux." },
+  { name: "IntelliJ IDEA", category: "Ferramentas", level: "Confortável", description: "Desenvolvimento e refatoração de projetos Java." },
+  { name: "Postman", category: "Ferramentas", level: "Confortável", description: "Requisições para conferir os retornos e as validações das APIs." },
   { name: "Linear", category: "Ferramentas", level: "Intermediário", description: "Organização das tarefas dos projetos." },
 ];
 
@@ -116,7 +116,7 @@ export const timeline: TimelineEntry[] = [
     institution: "Escola Yervant Kissajikian",
     period: "Fev 2023 – Dez 2025",
     description:
-      "Técnico junto com o ensino médio. Foi onde escrevi meu primeiro código que não era só pra passar na prova.",
+      "Formação técnica cursada junto com o ensino médio, com estudos de programação e banco de dados.",
     kind: "formacao",
   },
   {
@@ -124,7 +124,7 @@ export const timeline: TimelineEntry[] = [
     institution: "SENAI Frederico Jacob",
     period: "Jan 2026 – Mai 2026",
     description:
-      "160 horas de orientação a objetos levada a sério, persistência e as boas práticas que eu vinha usando de ouvido até então.",
+      "Curso de 160 horas com orientação a objetos, persistência e desenvolvimento de aplicações backend.",
     kind: "curso",
   },
   {
@@ -132,7 +132,7 @@ export const timeline: TimelineEntry[] = [
     institution: "Projeto de curso",
     period: "Mai 2026",
     description:
-      "Spring MVC com Thymeleaf e API REST no mesmo projeto: pedidos, produtos e estoque conversando.",
+      "Projeto de curso com cadastro de produtos, pedidos e controle de estoque, usando Spring MVC e Thymeleaf.",
     kind: "projeto",
   },
   {
@@ -140,7 +140,7 @@ export const timeline: TimelineEntry[] = [
     institution: "SENAI Orlando Laviero Ferraiuolo",
     period: "Mar 2026 – Jun 2026",
     description:
-      "120 horas construindo API REST com Spring Boot — a base direta dos dois projetos que vieram depois.",
+      "Curso de 120 horas voltado à construção de APIs REST com Spring Boot.",
     kind: "curso",
   },
   {
@@ -148,7 +148,7 @@ export const timeline: TimelineEntry[] = [
     institution: "Projeto próprio",
     period: "Abr 2026",
     description:
-      "Primeira vez que usei fila de verdade: RabbitMQ pra tirar o e-mail de confirmação do fluxo do agendamento.",
+      "Agendamento de aulas com regras de disponibilidade e envio de confirmação por uma fila RabbitMQ.",
     kind: "projeto",
   },
   {
@@ -156,7 +156,7 @@ export const timeline: TimelineEntry[] = [
     institution: "Projeto próprio",
     period: "Jun 2026",
     description:
-      "O mais completo até aqui: seis perfis de acesso, schema versionado com Flyway e testes que fiscalizam a própria estrutura do código.",
+      "Registro de ocorrências por aluno, permissões por perfil e testes para verificar a separação das regras de negócio.",
     kind: "projeto",
   },
 ];
@@ -210,7 +210,7 @@ export const books: Book[] = [
     cover: "/livros/arquitetura-limpa.jpg",
     status: "lendo",
     note:
-      "Peguei depois de já ter organizado dois projetos por instinto, e o livro foi colocando nome no que eu vinha fazendo sem saber explicar.",
+      "Estou lendo para entender melhor as dependências entre as partes da aplicação e comparar com as escolhas dos meus projetos.",
   },
   {
     title: "Implementando Domain-Driven Design",
@@ -218,7 +218,7 @@ export const books: Book[] = [
     cover: "/livros/implementando-ddd.jpg",
     status: "quero-ler",
     note:
-      "Próximo da fila. Quero entender como modelar o domínio antes de sair criando classe, que é onde eu ainda erro.",
+      "Quero estudar como organizar o código a partir das regras e dos termos do negócio. É a próxima leitura da lista.",
   },
 ];
 

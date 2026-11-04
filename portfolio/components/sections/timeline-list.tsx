@@ -53,7 +53,7 @@ export function TimelineList({ entries }: { entries: TimelineEntry[] }) {
                 </div>
                 <h3 className="mt-1.5 font-display text-lg font-semibold text-ink">{entry.title}</h3>
                 <p className="text-[13px] text-graphite">{entry.institution}</p>
-                <p className="mt-2 max-w-xl text-[14px] leading-relaxed text-graphite">{entry.description}</p>
+                <p className="mt-2 max-w-xl text-base leading-relaxed text-graphite">{entry.description}</p>
               </div>
             </motion.div>
           );

@@ -31,11 +31,11 @@ export function TechCard({ tech, index }: { tech: Technology; index: number }) {
           </span>
         </HexIcon>
         <div className="min-w-0">
-          <h4 className="truncate font-display text-[15px] font-semibold text-ink">{tech.name}</h4>
+          <h4 className="font-display text-base font-semibold text-ink">{tech.name}</h4>
           {tech.since && <p className="font-mono text-[11px] text-graphite">desde {tech.since}</p>}
         </div>
       </div>
-      <p className="mt-3 text-[13px] leading-relaxed text-graphite">{tech.description}</p>
+      <p className="mt-3 text-base leading-relaxed text-graphite">{tech.description}</p>
       <div className="mt-4">
         <div className="flex items-center justify-between">
           <span className="font-mono text-[10px] uppercase tracking-wide text-graphite">{tech.level}</span>

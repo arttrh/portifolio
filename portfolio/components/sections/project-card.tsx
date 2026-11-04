@@ -27,18 +27,18 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
         </div>
       </div>
 
-      <p className="mt-5 text-[15px] leading-relaxed text-graphite">{project.description}</p>
+      <p className="mt-5 text-base leading-relaxed text-graphite">{project.description}</p>
 
       <div className="mt-5 rounded-lg bg-signal-dim/60 px-4 py-3">
-        <p className="font-mono text-[11px] uppercase tracking-wide text-signal">Arquitetura</p>
-        <p className="mt-1 text-[14px] text-ink">{project.architecture}</p>
+        <p className="font-mono text-[11px] uppercase tracking-wide text-signal">Como organizei o código</p>
+        <p className="mt-1 text-base leading-relaxed text-ink">{project.architecture}</p>
       </div>
 
       <div className="mt-5">
-        <p className="font-mono text-[11px] uppercase tracking-wide text-graphite">Principais desafios</p>
+        <p className="font-mono text-[11px] uppercase tracking-wide text-graphite">Problemas e soluções</p>
         <ul className="mt-2 space-y-1.5">
           {project.challenges.map((c) => (
-            <li key={c} className="flex gap-2 text-[13.5px] leading-relaxed text-graphite">
+            <li key={c} className="flex gap-2 text-base leading-relaxed text-graphite">
               <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-signal" />
               {c}
             </li>
@@ -61,7 +61,7 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
             Demo <ArrowUpRight size={14} />
           </a>
         ) : (
-          <span className="flex items-center px-4 text-[12px] font-mono text-graphite/60">demo em breve</span>
+          <span className="flex items-center px-4 text-[12px] font-mono text-graphite/60">Sem demo online</span>
         )}
       </div>
     </motion.div>

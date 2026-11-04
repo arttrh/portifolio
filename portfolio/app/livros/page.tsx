@@ -18,8 +18,8 @@ export default function LivrosPage() {
     <>
       <PageHeader
         eyebrow="Livros"
-        title="O que está aberto na mesa"
-        description="Leio devagar e um de cada vez. Aqui fica o que estou lendo e o que vem depois."
+        title="O que estou lendo"
+        description="A leitura atual e o próximo livro que quero estudar."
       />
       <section className="mx-auto max-w-content space-y-14 px-6 pb-24">
         {prateleiras.map(({ status, titulo }) => {
@@ -46,7 +46,7 @@ export default function LivrosPage() {
                       <div className="min-w-0">
                         <h3 className="font-display text-[17px] font-semibold leading-snug text-ink">{book.title}</h3>
                         <p className="mt-1 text-[13px] text-graphite">{book.author}</p>
-                        <p className="mt-3 text-[13.5px] leading-relaxed text-graphite">{book.note}</p>
+                        <p className="mt-3 text-base leading-relaxed text-graphite">{book.note}</p>
                       </div>
                     </div>
                   </Reveal>

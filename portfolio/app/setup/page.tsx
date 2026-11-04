@@ -11,8 +11,8 @@ export default function SetupPage() {
     <>
       <PageHeader
         eyebrow="Setup"
-        title="Onde eu trabalho"
-        description="Ainda não organizei isso num repositório — quando eu montar um mostrando minha configuração e minha máquina, o link entra aqui."
+        title="Meu ambiente"
+        description="Ainda não publiquei as configurações do meu ambiente de desenvolvimento."
       />
       <section className="mx-auto max-w-content px-6 pb-24">
         <Reveal>
@@ -21,9 +21,8 @@ export default function SetupPage() {
               <Hexagon size={64} className="text-line" strokeWidth={1.25} />
               <Terminal size={22} className="absolute inset-0 m-auto text-graphite" />
             </div>
-            <p className="max-w-sm text-[14px] leading-relaxed text-graphite">
-              Vou montar um repositório separado com minhas dotfiles e a máquina em si — quando estiver pronto,
-              ele aparece aqui.
+            <p className="max-w-sm text-base leading-relaxed text-graphite">
+              Quando o repositório de dotfiles estiver disponível, vou deixar o link aqui.
             </p>
           </div>
         </Reveal>

@@ -22,8 +22,8 @@ export default function TecnologiasPage() {
     <>
       <PageHeader
         eyebrow="Tecnologias"
-        title="O que eu uso, e o quanto eu uso"
-        description="Separei o que já uso no dia a dia do que ainda estou aprendendo. Se está marcado como aprendendo, é porque ainda não coloquei em projeto nenhum — prefiro você saber disso agora do que descobrir na entrevista."
+        title="Tecnologias que uso"
+        description="Uso principalmente Java e Spring Boot. A lista também inclui ferramentas dos meus projetos e assuntos que ainda estou estudando."
       />
       <section className="mx-auto max-w-content space-y-16 px-6 pb-24">
         {categories.map((category) => {

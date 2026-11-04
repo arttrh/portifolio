@@ -25,7 +25,7 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://arthurlucas.dev"),
+  metadataBase: new URL("https://portifolio-eta-brown-44.vercel.app"),
   title: {
     default: `${profile.name} — ${profile.role}`,
     template: `%s · ${profile.name}`,
