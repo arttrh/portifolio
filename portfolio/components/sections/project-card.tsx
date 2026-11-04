@@ -10,12 +10,13 @@ import type { Project } from "@/types";
 export function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <motion.div
+      id={project.slug}
       initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -4 }}
-      className="group rounded-xl2 border border-line bg-white p-8 transition-shadow duration-300 hover:shadow-[0_24px_60px_-24px_rgba(20,21,26,0.18)]"
+      className="group scroll-mt-28 rounded-xl2 border border-line bg-white p-8 transition-shadow duration-300 hover:shadow-[0_24px_60px_-24px_rgba(20,21,26,0.18)]"
     >
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-center gap-3">

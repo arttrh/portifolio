@@ -44,7 +44,7 @@ export function Navbar() {
         <div className="hidden h-5 w-px shrink-0 bg-line sm:block" />
         <div className="flex items-center gap-0 sm:gap-1">
           {navItems.map((item) => {
-            const active = pathname === item.href;
+            const active = pathname === item.href || (item.href !== "/" && pathname.startsWith(`${item.href}/`));
             const Icon = item.icon;
             return (
               <Link

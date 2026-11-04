@@ -29,6 +29,17 @@ export interface TimelineEntry {
   kind: "formacao" | "curso" | "projeto";
 }
 
+export interface ParallelProject {
+  slug: string;
+  name: string;
+  description: string;
+  details: string;
+  stack: string[];
+  githubUrl: string;
+  status: "Estudo" | "Em desenvolvimento";
+  pending?: string;
+}
+
 export interface Achievement {
   title: string;
   issuer: string;
@@ -40,7 +51,7 @@ export interface Certificate {
   issuer: string;
   hours: string;
   period: string;
-  /** Link público de verificação, quando o emissor oferece um. */
+  /** Link público para consultar o certificado. */
   verifyUrl?: string;
 }
 

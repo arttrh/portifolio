@@ -1,4 +1,4 @@
-import type { Achievement, Book, Certificate, Project, SetupItem, Technology, TimelineEntry } from "@/types";
+import type { Achievement, Book, Certificate, ParallelProject, Project, SetupItem, Technology, TimelineEntry } from "@/types";
 
 export const profile = {
   name: "Arthur Lucas",
@@ -14,12 +14,6 @@ export const profile = {
   summary:
     "Sou desenvolvedor backend e uso Java e Spring Boot nos meus projetos. Estou buscando minha primeira oportunidade na área e reuni aqui o código e as decisões de cada trabalho.",
 };
-
-export const stats = [
-  { label: "APIs que escrevi do zero", value: "3" },
-  { label: "Medalhas em olimpíadas", value: "3" },
-  { label: "Certificados concluídos", value: "5" },
-];
 
 export const projects: Project[] = [
   {
@@ -78,6 +72,37 @@ export const projects: Project[] = [
   },
 ];
 
+export const parallelProjects: ParallelProject[] = [
+  {
+    slug: "via-cep",
+    name: "Consulta de CEP",
+    description: "Um programa de terminal que recebe um CEP e busca o endereço no serviço ViaCEP.",
+    details: "A consulta é feita por HTTP, e o Gson converte o JSON em um objeto Java. O código trata o retorno de CEP não encontrado e define limites de espera para a conexão e a resposta.",
+    stack: ["Java", "Apache HttpClient", "Gson", "Maven"],
+    githubUrl: "https://github.com/arttrh/ViaCep",
+    status: "Estudo",
+  },
+  {
+    slug: "webflux",
+    name: "Playlists com WebFlux",
+    description: "Estudo de programação reativa com cadastro e consulta de playlists no MongoDB.",
+    details: "Estudei Mono e Flux e o acesso reativo ao MongoDB. Experimentei controllers e rotas com handlers, usando Docker para subir o banco localmente.",
+    stack: ["Java", "Spring WebFlux", "MongoDB", "Reactor", "Docker"],
+    githubUrl: "https://github.com/arttrh/Webflux",
+    status: "Estudo",
+  },
+  {
+    slug: "pagamentos",
+    name: "Pagamentos",
+    description: "Projeto de simulação de pagamentos com persistência e troca de eventos pelo RabbitMQ. Ainda está incompleto.",
+    details: "O código separa o gateway, o repositório e a publicação de eventos. O gateway atual é simulado; não há integração com um provedor de pagamentos real.",
+    stack: ["Java", "Spring Boot", "RabbitMQ", "MySQL", "Flyway", "Docker"],
+    githubUrl: "https://github.com/arttrh/Pagamentos",
+    status: "Em desenvolvimento",
+    pending: "Concluir o fluxo de estorno, que ainda não está implementado.",
+  },
+];
+
 export const technologies: Technology[] = [
   { name: "Java", category: "Backend", level: "Confortável", since: "2023", description: "Minha principal linguagem nos projetos de backend." },
   { name: "Spring Boot", category: "Backend", level: "Confortável", description: "Uso para criar as APIs e configurar as aplicações Java." },
@@ -97,7 +122,7 @@ export const technologies: Technology[] = [
   { name: "GitHub Actions", category: "DevOps", level: "Aprendendo", description: "Automação de build e testes nos repositórios." },
   { name: "Git", category: "DevOps", level: "Confortável", description: "Versionamento do código e trabalho com branches e pull requests." },
   { name: "Linux", category: "DevOps", level: "Confortável", description: "Sistema que uso no meu ambiente de desenvolvimento." },
-  { name: "Kubernetes", category: "DevOps", level: "Aprendendo", description: "Estou estudando como executar e organizar aplicações em contêineres." },
+  { name: "Kubernetes", category: "DevOps", level: "Aprendendo", description: "Estudei a configuração de aplicações, bancos e serviços no curso de Kubernetes com microsserviços da Alura." },
   { name: "REST", category: "Arquitetura", level: "Confortável", description: "Definição de endpoints, métodos HTTP e dados de entrada e saída." },
   { name: "JWT", category: "Arquitetura", level: "Intermediário", description: "Tokens usados na autenticação e na identificação do perfil de acesso." },
   { name: "OpenAPI / Swagger", category: "Arquitetura", level: "Intermediário", description: "Documentação das rotas e dos formatos aceitos e retornados pela API." },
@@ -173,12 +198,14 @@ export const certificates: Certificate[] = [
     issuer: "SENAI Frederico Jacob",
     hours: "160 horas",
     period: "Jan – Mai 2026",
+    verifyUrl: "https://github.com/arttrh/certificados/blob/main/certificado-desenvolvedor-back-end.pdf",
   },
   {
     name: "Desenvolvimento de API REST com Spring Boot",
     issuer: "SENAI Orlando Laviero Ferraiuolo",
     hours: "120 horas",
     period: "Mar – Jun 2026",
+    verifyUrl: "https://github.com/arttrh/certificados/blob/main/certificado-api-rest-spring-boot.pdf",
   },
   {
     name: "Spring Boot 3: desenvolva uma API Rest em Java",
@@ -201,6 +228,40 @@ export const certificates: Certificate[] = [
     period: "Jun 2026",
     verifyUrl: "https://cursos.alura.com.br/certificate/aaf3fa87-8c5d-4727-ad06-7eae022d292e",
   },
+  {
+    name: "Java: aplicando a Orientação a Objetos",
+    issuer: "Alura",
+    hours: "10 horas",
+    period: "Nov 2025",
+    verifyUrl: "https://cursos.alura.com.br/certificate/3cd224d2-fefd-4365-b091-f729a37a17d1",
+  },
+  {
+    name: "DevOps: trabalhando com repositórios no GitHub",
+    issuer: "Alura",
+    hours: "8 horas",
+    period: "Mai 2026",
+    verifyUrl: "https://cursos.alura.com.br/certificate/76b8fd35-86bc-462c-acaa-b534a829997f",
+  },
+  {
+    name: "Spring Boot 3: documente, teste e prepare uma API para o deploy",
+    issuer: "Alura",
+    hours: "10 horas",
+    period: "Jun 2026",
+    verifyUrl: "https://cursos.alura.com.br/certificate/2ea52351-0755-456a-8e88-8ae2c989561a",
+  },
+  {
+    name: "Kubernetes com microsserviços: subindo e gerenciando uma aplicação",
+    issuer: "Alura",
+    hours: "8 horas",
+    period: "Nov 2026",
+    verifyUrl: "https://cursos.alura.com.br/certificate/c27b1f99-a084-4cd4-ab3a-840314503fe6",
+  },
+];
+
+export const stats = [
+  { label: "APIs em destaque", value: String(projects.length) },
+  { label: "Medalhas em olimpíadas", value: String(achievements.length) },
+  { label: "Certificados concluídos", value: String(certificates.length) },
 ];
 
 export const books: Book[] = [

@@ -46,7 +46,7 @@ export default function CertificadosPage() {
                             rel="noreferrer"
                             className="flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 font-mono text-[11px] text-graphite transition-colors hover:border-signal/40 hover:text-ink"
                           >
-                            Verificar <ExternalLink size={12} />
+                            Ver certificado <ExternalLink size={12} />
                           </a>
                         ) : null}
                       </div>
