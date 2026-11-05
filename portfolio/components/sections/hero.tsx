@@ -44,8 +44,16 @@ export function Hero() {
             <MapPin size={14} /> {profile.location}
           </motion.div>
 
-          <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-3">
-            <Link href="/projetos" className={buttonVariants({ variant: "primary" })}>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <a
+              href="/Arthur-Lucas-Curriculo.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={buttonVariants({ variant: "primary", className: "text-base" })}
+            >
+              Currículo (PDF) <ArrowRight size={15} aria-hidden="true" />
+            </a>
+            <Link href="/projetos" className={buttonVariants({ variant: "outline" })}>
               Ver Projetos <ArrowRight size={15} />
             </Link>
             <Link href="/contato" className={buttonVariants({ variant: "outline" })}>
@@ -71,7 +79,7 @@ export function Hero() {
                 <Linkedin size={18} />
               </a>
             </div>
-          </motion.div>
+          </div>
 
           <motion.div variants={item} className="mt-12">
             <StatRow />
