@@ -292,10 +292,38 @@ export const books: Book[] = [
   },
 ];
 
-// Fica vazio de propósito: o conteúdo real vem de um repositório à parte
-// (dotfiles + a máquina em si), ainda não criado. app/setup/page.tsx mostra
-// um estado "em construção" enquanto isso.
-export const setup: SetupItem[] = [];
+export const setup: SetupItem[] = [
+  {
+    category: "Sistema",
+    name: "CachyOS + Niri",
+    description: "Desktop Linux com Wayland. Uso o Niri para organizar as janelas e os atalhos entre os espaços de trabalho.",
+  },
+  {
+    category: "Sistema",
+    name: "Serpantinum",
+    description: "Barra, dock e launcher do desktop, com tema escuro e acesso aos controles da sessão.",
+  },
+  {
+    category: "Terminal",
+    name: "Kitty",
+    description: "Terminal do ambiente, com cores e fontes ajustadas junto do restante do desktop.",
+  },
+  {
+    category: "Terminal",
+    name: "Zsh + Starship",
+    description: "Shell e prompt com aliases e atalhos para os comandos que uso no desenvolvimento.",
+  },
+  {
+    category: "Editor",
+    name: "Neovim",
+    description: "Configuração em Lua com ferramentas Java e controle das versões dos plugins.",
+  },
+  {
+    category: "Desenvolvimento",
+    name: "Ferramentas do desktop",
+    description: "Scripts e atalhos locais para capturas de tela, menus e troca de wallpapers.",
+  },
+];
 
 export const languages = [
   { name: "Português", level: "Nativo" },
