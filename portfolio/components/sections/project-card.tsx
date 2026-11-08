@@ -59,10 +59,10 @@ export function ProjectCard({ project, index }: { project: Project; index: numbe
         </a>
         {project.demoUrl ? (
           <a href={project.demoUrl} target="_blank" rel="noreferrer" className={buttonVariants({ variant: "ghost", size: "sm" })}>
-            Demo <ArrowUpRight size={14} />
+            Acessar projeto <ArrowUpRight size={14} />
           </a>
         ) : (
-          <span className="flex items-center px-4 text-[12px] font-mono text-graphite/60">Sem demo online</span>
+          <span className="flex items-center px-4 text-[12px] font-mono text-graphite/60">Ainda não publicado</span>
         )}
       </div>
     </motion.div>
