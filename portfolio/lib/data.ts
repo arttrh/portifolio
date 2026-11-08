@@ -33,6 +33,7 @@ export const projects: Project[] = [
     ],
     stack: ["Java", "Spring Boot", "Spring Security", "JWT", "PostgreSQL", "Flyway", "ArchUnit", "Bucket4j", "Docker"],
     githubUrl: "https://github.com/arttrh/Ocorrencia-escolar",
+    demoUrl: "https://ocorrencia-escolar-arttrh.vercel.app",
   },
   {
     slug: "auto-escola",
@@ -51,6 +52,7 @@ export const projects: Project[] = [
     ],
     stack: ["Java", "Spring Boot", "JWT", "MySQL", "Flyway", "RabbitMQ", "Caffeine", "Thymeleaf", "OpenAPI", "Docker"],
     githubUrl: "https://github.com/arttrh/AUTOESCOLAN116",
+    demoUrl: "https://autoescola-n116-arttrh.vercel.app",
   },
   {
     slug: "cantina-senai",
